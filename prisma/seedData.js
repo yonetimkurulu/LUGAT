@@ -2489,6 +2489,51 @@ module.exports = {
       correctAnswer: "Pek güzel, nurlu ve heybetli olan",
       explanation: "Görklü, Eski Türkçedeki 'körk' (cemal, güzellik) kökünden gelir ve nurlu, kutlu manasındadır.",
       relatedWordSlug: "gorklu"
+    },
+    {
+      type: "ROOT_FINDING",
+      prompt: "'Fetih', 'Fâtih', 'Miftâh' ve 'İftitâh' kelimelerinin müşterek iştikak kökü hangisidir?",
+      targetScript: "ف-ت-ح",
+      options: JSON.stringify(["F-T-H (فتح)", "F-T-N (فتن)", "F-T-R (فتر)", "F-Q-H (فقه)"]),
+      correctAnswer: "F-T-H (فتح)",
+      explanation: "Açmak, kilidi çözmek ve memleketi adaletle açmak manasındaki F-T-H kökünden türetilmiştir.",
+      relatedWordSlug: "fetih"
+    },
+    {
+      type: "READING_SCRIPT",
+      prompt: "Aşağıda Osmanlıca yazılışı verilen ve 'Mevlânâ'nın Hakk'a vuslat gecesi' manasına gelen ibare hangisidir?",
+      targetScript: "شب عروس",
+      options: JSON.stringify(["Şeb-i Arûs", "Şeb-i Yelda", "Şebistân", "Nevbahâr"]),
+      correctAnswer: "Şeb-i Arûs",
+      explanation: "Farsça şeb (gece) ve Arapça arûs (düğün) terkibinden oluşan Şeb-i Arûs, vuslat gecesidir.",
+      relatedWordSlug: "seb-i-arus"
+    },
+    {
+      type: "MEANING_CHOICE",
+      prompt: "Mevlevî mezarlıklarına verilen ve 'Susanlar, sükût edenler yurdu' manasına gelen isim hangisidir?",
+      targetScript: "خاموش",
+      options: JSON.stringify(["Hâmûşân", "Gülşenî", "Bîçâregân", "Müştâkān"]),
+      correctAnswer: "Hâmûşân",
+      explanation: "Farsça hâmûş (suskun) kelimesinin çoğulu olan Hâmûşân, dünya gailelerinden sıyrılıp ebedi sükûta erenlerin makamıdır.",
+      relatedWordSlug: "hamus"
+    },
+    {
+      type: "EQUIVALENT_MATCH",
+      prompt: "Eski Türk ve Osmanlı idare teşkilatındaki 'Sübaşı' tabirindeki 'sü' kelimesinin asıl manası nedir?",
+      targetScript: "صوباشی",
+      options: JSON.stringify(["Asker / Ordu", "Su bendleri", "Sözcü", "Saray kâtipliği"]),
+      correctAnswer: "Asker / Ordu",
+      explanation: "Eski Türkçe 'sü' asker ve ordu demektir; sübaşı ordu kumandanı ve kasaba asayiş amiridir.",
+      relatedWordSlug: "subasi"
+    },
+    {
+      type: "READING_SCRIPT",
+      prompt: "Aşağıda Osmanlıca imlası verilen ve 'Önsöz, başlangıç bahsi' manasına gelen kelime hangisidir?",
+      targetScript: "مقدمه",
+      options: JSON.stringify(["Mukaddime", "Münakaşa", "Muvafakat", "Muvaffakiyet"]),
+      correctAnswer: "Mukaddime",
+      explanation: "Mim, kaf, dal, ye ve he harfleriyle yazılan Mukaddime, kitabın başındaki giriş bahsidir.",
+      relatedWordSlug: "mukaddime"
     }
   ]
 };

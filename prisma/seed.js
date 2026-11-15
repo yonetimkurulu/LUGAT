@@ -1,6 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const seedData = require("./seedData");
 const additional = require("./additionalWords");
+const expanded = require("./expandedWords");
+const masterVocab = require("./masterVocabulary");
 
 const prisma = new PrismaClient();
 
@@ -42,7 +44,12 @@ async function main() {
   console.log(`✅ ${seedData.categories.length} adet kategori kaydedildi.`);
 
   // 3. Seed Roots
-  const allRoots = [...seedData.roots, ...additional.roots];
+  const allRoots = [
+    ...seedData.roots,
+    ...additional.roots,
+    ...(expanded.roots || []),
+    ...(masterVocab.roots || [])
+  ];
   const rootMap = new Map();
   for (const r of allRoots) {
     const createdRoot = await prisma.root.create({
@@ -60,7 +67,12 @@ async function main() {
   console.log(`✅ ${allRoots.length} adet etimolojik kök kaydedildi.`);
 
   // 4. Seed Words
-  const allWords = [...seedData.words, ...additional.words];
+  const allWords = [
+    ...seedData.words,
+    ...additional.words,
+    ...(expanded.words || []),
+    ...(masterVocab.words || [])
+  ];
   console.log(`📚 Toplam işlenecek kelime sayısı: ${allWords.length}`);
 
   const wordMap = new Map(); // slug -> id
