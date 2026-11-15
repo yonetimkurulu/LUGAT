@@ -81,21 +81,33 @@ export default async function RootDetailPage({ params }: PageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 text-xs">
-            <div className="space-y-1 bg-white p-4 rounded-xl border border-[#EAE2D5]">
-              <span className="font-serif font-bold text-sm text-ink-900 block mb-1">
+            <div className="space-y-1 bg-white p-5 rounded-xl border border-[#EAE2D5] shadow-xs">
+              <span className="font-heading font-bold text-sm text-ink-900 block mb-1">
                 Semantik Kök Manası:
               </span>
-              <p className="text-ink-700 leading-relaxed font-sans text-sm">
+              <p className="text-ink-800 leading-relaxed font-editorial text-[15px]">
                 "{root.primaryMeaning}"
               </p>
             </div>
 
             {root.description && (
-              <div className="space-y-1 bg-white p-4 rounded-xl border border-[#EAE2D5]">
-                <span className="font-serif font-bold text-sm text-ink-900 block mb-1">
-                  Etimolojik & Lugavî İzah:
-                </span>
-                <p className="text-ink-700 leading-relaxed font-sans">
+              <div className="space-y-1 bg-white p-5 rounded-xl border border-[#EAE2D5] shadow-xs">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-heading font-bold text-sm text-ink-900">
+                    Etimolojik & Sarf İzahı:
+                  </span>
+                  {root.origin.includes("Ecvef") && (
+                    <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-sans text-[10px] font-semibold uppercase tracking-wider">
+                      Ecvef-i Vâvî
+                    </span>
+                  )}
+                  {root.origin.includes("Nâkıs") && (
+                    <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-900 border border-indigo-300 font-sans text-[10px] font-semibold uppercase tracking-wider">
+                      Nâkıs Kök
+                    </span>
+                  )}
+                </div>
+                <p className="text-ink-800 leading-relaxed font-editorial text-[15px]">
                   {root.description}
                 </p>
               </div>

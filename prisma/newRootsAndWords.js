@@ -12,9 +12,9 @@ const newRootsData = [
     slug: "nvr",
     rootLettersModern: "N-V-R",
     rootLettersArabic: "ن-و-ر",
-    origin: "Arapça",
+    origin: "Arapça (Ecvef-i Vâvî)",
     primaryMeaning: "Aydınlanma, ışık saçma, görünür kılma, idrak nuru",
-    description: "Işık, ziya, aydınlık ve basiret manalarını ihtiva eder. Hem maddi ışığı hem de akli ve kalbi aydınlanmayı (tenvir, münevver) ifade eden merkezi bir kavramdır.",
+    description: "Sarf ilminde 'Ecvef-i Vâvî' (ortası vâv olan illetli kök) kabul edilir. Yalın isim halinde (نُور - Nûr) ortadaki vâv harfi önceki damme harekesi sebebiyle cezimli kalarak 'û' sesini uzatan med harfine dönüşür (i'lâl kaidesi). Buna mukabil tef'îl babında (تنوير - Tenvîr) ve ism-i mef'ûlde (منور - Münevver) asıl kök harfi olan 'V' ünsüzü açığa çıkar ve şeddelenir. İsm-i mekânda ise elife inkılap ederek minare (منارة) biçimini alır.",
     words: [
       {
         slug: "nur",
@@ -23,9 +23,9 @@ const newRootsData = [
         transliteration: "Nūr",
         primaryOttoman: "نور",
         origin: "Arapça",
-        originDetail: "N-V-R kökünden sülâsî masdar/isim",
+        originDetail: "N-V-R (ن-و-ر) ecvef kökünden sülâsî isim/masdar; kökteki vâv harfi dammeden sonra sakin kalarak 'û' med sesine dönüşmüştür (i'lâl kaidesi).",
         partOfSpeech: "İsim",
-        pattern: "Fa'l (فَعْل)",
+        pattern: "Fu'l (فُعْل) - Ecvef",
         type: "Masdar / İsim",
         meaning: "Zulmeti gideren aydınlık; kalbe ve zihne inşirah veren ilahi ve fikri aydınlık.",
         quote: "Nûrundan yaratıldı cümle âlem. (Süleyman Çelebi)",
@@ -324,9 +324,9 @@ const newRootsData = [
     slug: "sfa",
     rootLettersModern: "S-F-A",
     rootLettersArabic: "ص-ف-ا",
-    origin: "Arapça",
+    origin: "Arapça (Nâkıs Kök)",
     primaryMeaning: "Arılık, duruluk, berraklık, tortusuz olma",
-    description: "Bulanıklıktan ve kederden arınmış berrak hali temsil eder; tasavvuf kelimesinin semantik köklerinden biri kabul edilir.",
+    description: "Sarf ilminde Nâkıs-ı Vâvî/Yâî (üçüncü harfi illetli olan) köktür. 'Safâ' kelimesinde elif olarak tecelli ederken, 'Tasfiye' tef'îl masdarında yâ harfine, 'Mustafa' ifti'âl ism-i mef'ûlünde ise elif-i maksûreye dönüşür.",
     words: [
       {
         slug: "safa",
@@ -414,9 +414,9 @@ const newRootsData = [
     slug: "kvn",
     rootLettersModern: "K-V-N",
     rootLettersArabic: "ك-و-ن",
-    origin: "Arapça",
+    origin: "Arapça (Ecvef-i Vâvî)",
     primaryMeaning: "Oluş, var olma, vücut bulma, kâinat",
-    description: "Yokluktan varlığa çıkış, tekevvün ve varlığın tecelligâhı olan uzamları ifade eder.",
+    description: "Sarf ilminde Ecvef-i Vâvî köktür. 'Kevn' ve 'Tekvin' kalıplarında vâv harfi açıkça 'v' ünsüzü olarak okunurken; 'Mekân' ism-i mekânında elife dönüşür, 'Kâinat' terkibinde ise ism-i fâil vezninde hemzeye inkılap eder.",
     words: [
       {
         slug: "kainat",
@@ -622,9 +622,9 @@ const newRootsData = [
     slug: "hvl",
     rootLettersModern: "H-V-L",
     rootLettersArabic: "ح-و-ل",
-    origin: "Arapça",
+    origin: "Arapça (Ecvef-i Vâvî)",
     primaryMeaning: "Dönüşme, güç yetirme, durum, intikal",
-    description: "Bir halden başka bir hale geçiş, dönüşüm ve nakil ifade eder.",
+    description: "Sarf ilminde Ecvef-i Vâvî köktür. 'Hâl' (حال) kelimesinde ortadaki vâv harfi elife dönüşerek uzatmalı 'â' sesini verir (i'lâl). 'Havâle' ve 'Tahvil' kelimelerinde ise asıl kök harfi olan 'v' sesi muhafaza edilir.",
     words: [
       {
         slug: "hal",
@@ -1048,9 +1048,9 @@ const newRootsData = [
     slug: "fny",
     rootLettersModern: "F-N-Y",
     rootLettersArabic: "ف-ن-ي",
-    origin: "Arapça",
+    origin: "Arapça (Nâkıs Kök)",
     primaryMeaning: "Tükenme, zeval bulma, yok olma, geçicilik",
-    description: "Varlığın son bulması, bekasız olması ve zevale ermesidir; bekā kelimesinin zıddıdır.",
+    description: "Sarf ilminde Nâkıs-ı Yâî (üçüncü harfi yâ olan illetli) köktür. Sülâsî masdarda 'Fenâ' (فنا) şeklinde elif-i memdûde ile, ism-i fâilde ise 'Fânî' (فاني) biçiminde yâ harfiyle görünür.",
     words: [
       {
         slug: "fena",
