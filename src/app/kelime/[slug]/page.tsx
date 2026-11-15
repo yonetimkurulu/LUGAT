@@ -181,11 +181,11 @@ export default async function WordDetailPage({ params }: PageProps) {
             <div className="text-right">
               <div
                 dir="rtl"
-                className="font-arabic text-6xl sm:text-7xl font-bold text-burgundy-800 tracking-wide select-all"
+                className="font-ruqaa text-6xl sm:text-7xl font-bold text-burgundy-800 tracking-wide select-all"
               >
                 {word.primaryOttoman}
               </div>
-              <span className="text-[11px] text-ink-400 font-serif uppercase tracking-widest block mt-1">
+              <span className="text-[11px] text-ink-400 font-heading uppercase tracking-widest block mt-1">
                 Klasik Matbu İmla
               </span>
             </div>
@@ -241,7 +241,7 @@ export default async function WordDetailPage({ params }: PageProps) {
                         {m.register}
                       </span>
                     )}
-                    <span className="text-base text-ink-800 leading-relaxed font-sans">
+                    <span className="text-base text-ink-900 leading-relaxed font-editorial text-[17px]">
                       {m.definition}
                     </span>
                   </div>

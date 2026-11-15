@@ -54,9 +54,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "Playfair Display", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
-        arabic: ["var(--font-arabic)", "Amiri", "Scheherazade New", "Traditional Arabic", "serif"],
+        serif: ["var(--font-serif)", "Cormorant Garamond", "EB Garamond", "Georgia", "serif"],
+        heading: ["var(--font-heading)", "Cinzel", "Cormorant Garamond", "serif"],
+        sans: ["var(--font-sans)", "Outfit", "system-ui", "-apple-system", "sans-serif"],
+        editorial: ["var(--font-editorial)", "EB Garamond", "Georgia", "serif"],
+        arabic: ["var(--font-arabic)", "Amiri", "Scheherazade New", "serif"],
+        ruqaa: ["var(--font-ruqaa)", "Aref Ruqaa", "Amiri", "serif"],
       },
       boxShadow: {
         manuscript: "0 2px 12px -2px rgba(36, 34, 32, 0.06), 0 1px 3px rgba(36, 34, 32, 0.04)",

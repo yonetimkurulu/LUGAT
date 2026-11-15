@@ -51,12 +51,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-18 py-3">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-burgundy-700 text-[#FAF7F2] flex items-center justify-center font-serif text-xl font-bold shadow-sm border border-gold-500/30 group-hover:bg-burgundy-800 transition-colors">
+            <div className="w-10 h-10 rounded-lg bg-burgundy-700 text-[#FAF7F2] flex items-center justify-center font-ruqaa text-2xl font-bold shadow-sm border border-gold-500/30 group-hover:bg-burgundy-800 transition-colors">
               ل
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <span className="font-serif text-2xl font-bold tracking-wider text-ink-900">
+                <span className="font-heading text-2xl font-bold tracking-wider text-ink-900">
                   LÜGAT
                 </span>
                 <span className="text-xs px-1.5 py-0.5 rounded bg-gold-100 text-gold-800 border border-gold-300 font-sans font-medium">

@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Scheherazade+New:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Outfit:wght@300;400;500;600;700&family=Scheherazade+New:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  --font-heading: 'Cinzel', 'Cormorant Garamond', serif;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-editorial: 'EB Garamond', Georgia, serif;
   --font-arabic: 'Amiri', 'Scheherazade New', 'Traditional Arabic', serif;
+  --font-ruqaa: 'Aref Ruqaa', 'Amiri', serif;
 }
 
 body {
@@ -16,11 +19,29 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+/* Headings with Classical Manuscript & Inscription Feel */
+h1, h2, h3, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: 0.02em;
+}
+
+/* Classical Literary / Dictionary Entry Typography */
+.font-editorial {
+  font-family: var(--font-editorial);
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
 /* Ottoman Arabic typography */
 .font-arabic {
   font-family: var(--font-arabic);
+}
+
+.font-ruqaa {
+  font-family: var(--font-ruqaa);
 }
 
 .arabic-display {
@@ -42,6 +63,13 @@ body {
   border: 1px solid #ECE5D8;
   border-radius: 0.75rem;
   box-shadow: 0 2px 8px -1px rgba(28, 25, 23, 0.04);
+}
+
+/* Ottoman seal ornament badge */
+.manuscript-seal {
+  font-family: var(--font-heading);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 /* Custom warm scrollbar */

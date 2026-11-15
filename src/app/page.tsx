@@ -99,7 +99,7 @@ export default async function HomePage() {
         <div
           dir="rtl"
           aria-hidden="true"
-          className="absolute right-0 top-1/2 -translate-y-1/2 select-none pointer-events-none opacity-[0.035] font-arabic text-[18rem] md:text-[26rem] text-burgundy-900 leading-none"
+          className="absolute right-0 top-1/2 -translate-y-1/2 select-none pointer-events-none opacity-[0.04] font-ruqaa text-[20rem] md:text-[30rem] text-burgundy-900 leading-none"
         >
           لغت
         </div>
@@ -107,12 +107,12 @@ export default async function HomePage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-burgundy-50 border border-burgundy-200 text-burgundy-800 text-xs font-semibold tracking-wide">
             <Sparkles className="w-3.5 h-3.5 text-gold-600" />
-            <span>Osmanlı Türkçesi Dijital İştikak ve Dil Platformu</span>
+            <span className="font-heading tracking-widest text-[11px] uppercase">Osmanlı Türkçesi Dijital İştikak ve Dil Platformu</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink-900 tracking-tight leading-tight">
+          <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold text-ink-900 tracking-tight leading-tight">
             Kelimelerin köklerine in, <br className="hidden sm:inline" />
-            <span className="text-burgundy-700 italic">
+            <span className="font-serif text-burgundy-700 italic font-normal">
               geçmişin dilini keşfet.
             </span>
           </h1>
@@ -257,7 +257,7 @@ export default async function HomePage() {
                   </div>
                   <div
                     dir="rtl"
-                    className="font-arabic text-5xl sm:text-6xl font-bold text-burgundy-800 leading-none"
+                    className="font-ruqaa text-5xl sm:text-6xl font-bold text-burgundy-800 leading-none"
                   >
                     {wordOfDay.primaryOttoman}
                   </div>
@@ -266,7 +266,7 @@ export default async function HomePage() {
                 {/* Meanings */}
                 <div className="space-y-2 pt-2 border-t border-[#ECE4D8]">
                   {wordOfDay.meanings.map((m, idx) => (
-                    <div key={m.id} className="text-sm text-ink-700 flex items-start gap-2">
+                    <div key={m.id} className="text-sm text-ink-800 font-editorial flex items-start gap-2 text-[16px]">
                       <span className="font-bold text-burgundy-700 font-serif">
                         {idx + 1}.
                       </span>

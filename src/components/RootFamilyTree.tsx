@@ -118,11 +118,11 @@ export default function RootFamilyTree({
               </span>
               <div
                 dir="rtl"
-                className="font-arabic text-4xl font-bold mt-1 tracking-wide text-gold-100"
+                className="font-ruqaa text-4xl font-bold mt-1 tracking-wide text-gold-100"
               >
                 {root.rootLettersArabic}
               </div>
-              <div className="font-serif text-lg font-bold text-[#FAF7F2] mt-0.5">
+              <div className="font-heading text-lg font-bold text-[#FAF7F2] mt-0.5">
                 {root.rootLettersModern}
               </div>
               <div className="text-xs text-stone-200 mt-1 max-w-xs">

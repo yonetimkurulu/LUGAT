@@ -1,8 +1,13 @@
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = "file:./lugat.db";
+}
+
 const { PrismaClient } = require("@prisma/client");
 const seedData = require("./seedData");
 const additional = require("./additionalWords");
 const expanded = require("./expandedWords");
 const masterVocab = require("./masterVocabulary");
+const { seedNewRoots } = require("./newRootsAndWords");
 
 const prisma = new PrismaClient();
 
@@ -252,6 +257,9 @@ async function main() {
     }
   }
   console.log(`✅ ${seedData.collections.length} adet lügat koleksiyonu kaydedildi.`);
+
+  // 5.5 Seed New 25 Classical Roots and Vocabulary
+  await seedNewRoots(prisma);
 
   // 6. Seed Quizzes
   for (const q of seedData.quizzes) {

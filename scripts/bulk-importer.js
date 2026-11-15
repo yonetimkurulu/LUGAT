@@ -4,6 +4,10 @@
  * üretir ve veritabanına yüksek hızlı toplu aktarım (bulk insertion) sağlar.
  */
 
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = "file:./lugat.db";
+}
+
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
