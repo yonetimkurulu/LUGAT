@@ -1,0 +1,231 @@
+// LÜGAT — PostgreSQL / Supabase Üretim Şeması (Milyonlarca Kelime İçin)
+// Supabase veya PostgreSQL kullanmak istediğinizde bu şemayı schema.prisma olarak kullanabilirsiniz.
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
+}
+
+model Word {
+  id                 String               @id @default(cuid())
+  slug               String               @unique
+  modernTurkish      String               // örn: "Tenkit" veya "Eleştiri"
+  modernEquivalents  String               // JSON array veya virgülle ayrılmış modern karşılıklar
+  transliteration    String               // örn: "Tenḳīd"
+  primaryOttoman     String               // Arap harfli imla: "تنقيد"
+  origin             String               // "Arapça", "Farsça", "Türkçe", "İtalyanca" vb.
+  originDetail       String?              // örn: "Arapça n-q-d (نقد) kökünden tef'îl masdarı"
+  partOfSpeech       String               // "İsim", "Sıfat", "Fiil", "Zarf", "Edat"
+  verificationStatus String               @default("VERIFIED") // VERIFIED, EDITORIAL, APPROXIMATE, PENDING
+  linguisticNotes    String?
+  isWordOfDay        Boolean              @default(false)
+  viewCount          Int                  @default(0)
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  meanings           WordMeaning[]
+  spellings          WordSpelling[]
+  rootRelations      WordRootRelation[]
+  examples           ExampleSentence[]
+  sourceRelations    WordSourceRelation[]
+  categoryRelations  WordCategoryRelation[]
+  synonyms           SynonymRelation[]     @relation("WordSynonyms")
+  targetSynonyms     SynonymRelation[]     @relation("TargetWordSynonyms")
+  collectionItems    CollectionItem[]
+  quizQuestions      QuizQuestion[]
+
+  @@index([slug])
+  @@index([modernTurkish])
+  @@index([primaryOttoman])
+  @@index([transliteration])
+  @@index([verificationStatus])
+}
+
+model WordSpelling {
+  id           String  @id @default(cuid())
+  wordId       String
+  arabicScript String  // örn: "تنقيد", "طَنقِيد"
+  spellingType String  // "Klasik İmla", "Matbu İmla", "Harekeli İmla"
+  translit     String?
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@index([wordId])
+  @@index([arabicScript])
+}
+
+model WordMeaning {
+  id          String   @id @default(cuid())
+  wordId      String
+  orderIndex  Int      @default(1)
+  meaning     String   // Temel tanım
+  definition  String?  // Genişletilmiş izah
+  usageArea   String?  // "Hukuk", "Edebiyat", "Felsefe"
+  isHistorical Boolean @default(true)
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@index([wordId])
+}
+
+model Root {
+  id                String             @id @default(cuid())
+  slug              String             @unique
+  rootLettersModern String             // örn: "H-K-M"
+  rootLettersArabic String             // örn: "ح-ك-م"
+  origin            String             @default("Arapça")
+  primaryMeaning    String             // örn: "Hükmetme, sağlamlaştırma, engelleme"
+  description       String?
+  createdAt         DateTime           @default(now())
+
+  relations         WordRootRelation[]
+
+  @@index([slug])
+  @@index([rootLettersModern])
+  @@index([rootLettersArabic])
+}
+
+model WordRootRelation {
+  id               String  @id @default(cuid())
+  wordId           String
+  rootId           String
+  morphologyType   String  // "Masdar", "İsm-i Fâil", "İsm-i Mef'ûl", "Tef'îl", vb.
+  relationshipNote String?
+  orderIndex       Int     @default(0)
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  root Root @relation(fields: [rootId], references: [id], onDelete: Cascade)
+
+  @@unique([wordId, rootId])
+  @@index([wordId])
+  @@index([rootId])
+}
+
+model ExampleSentence {
+  id               String  @id @default(cuid())
+  wordId           String
+  sentenceModern   String
+  sentenceOttoman  String?
+  sentenceTranslit String?
+  author           String?
+  work             String?
+  century          String?
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@index([wordId])
+}
+
+model SynonymRelation {
+  id                 String  @id @default(cuid())
+  wordId             String
+  targetWordId       String
+  nuanceExplanation  String?
+  similarityDegree   Float   @default(1.0)
+
+  word       Word @relation("WordSynonyms", fields: [wordId], references: [id], onDelete: Cascade)
+  targetWord Word @relation("TargetWordSynonyms", fields: [targetWordId], references: [id], onDelete: Cascade)
+
+  @@unique([wordId, targetWordId])
+  @@index([wordId])
+  @@index([targetWordId])
+}
+
+model Category {
+  id          String                 @id @default(cuid())
+  name        String                 @unique
+  slug        String                 @unique
+  description String?
+  icon        String?
+
+  words       WordCategoryRelation[]
+
+  @@index([slug])
+}
+
+model WordCategoryRelation {
+  wordId     String
+  categoryId String
+
+  word     Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([wordId, categoryId])
+  @@index([wordId])
+  @@index([categoryId])
+}
+
+model Source {
+  id              String               @id @default(cuid())
+  name            String               @unique // "Kâmûs-ı Türkî", "Lugat-ı Nâcî", vb.
+  author          String?
+  publicationYear String?
+  description     String?
+
+  relations       WordSourceRelation[]
+}
+
+model WordSourceRelation {
+  wordId    String
+  sourceId  String
+  pageInfo  String?
+  citation  String?
+
+  word   Word   @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  source Source @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([wordId, sourceId])
+  @@index([wordId])
+  @@index([sourceId])
+}
+
+model Collection {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  title       String
+  description String?
+  isFeatured  Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+
+  items       CollectionItem[]
+
+  @@index([slug])
+}
+
+model CollectionItem {
+  id           String     @id @default(cuid())
+  collectionId String
+  wordId       String
+  notes        String?
+  orderIndex   Int        @default(0)
+
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  word       Word       @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, wordId])
+  @@index([collectionId])
+  @@index([wordId])
+}
+
+model QuizQuestion {
+  id            String  @id @default(cuid())
+  questionType  String  // "MULTIPLE_CHOICE", "READING", "ROOT_MATCH"
+  prompt        String
+  promptArabic  String?
+  options       String  // JSON array
+  correctAnswer String
+  explanation   String?
+  difficulty    String  @default("MEDIUM")
+  wordId        String?
+
+  word Word? @relation(fields: [wordId], references: [id], onDelete: SetNull)
+
+  @@index([difficulty])
+  @@index([questionType])
+}
