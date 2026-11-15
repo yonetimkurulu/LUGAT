@@ -11,7 +11,8 @@
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "prisma:seed": "node prisma/seed.js",
-    "bulk:generate": "node scripts/bulk-importer.js"
+    "corpus:audit": "node scripts/audit-corpus.js",
+    "corpus:fetch": "node scripts/fetch-external-lexicon.js"
   },
   "keywords": [
     "osmanlica",
