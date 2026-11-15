@@ -1,0 +1,222 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./lugat.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Word {
+  id                 String               @id @default(cuid())
+  slug               String               @unique
+  modernTurkish      String               // e.g. "Tenkit" or "Eleştiri"
+  modernEquivalents  String               // JSON array or comma separated modern Turkish terms (e.g. "eleştiri, kınama, inceleme")
+  transliteration    String               // e.g. "Tenḳīd"
+  primaryOttoman     String               // Arabic script: e.g. "تنقيد"
+  origin             String               // "Arapça", "Farsça", "Türkçe", "İtalyanca", etc.
+  originDetail       String?              // e.g. "Arapça n-q-d (نقد) kökünden tef'îl masdarı"
+  partOfSpeech       String               // "İsim", "Sıfat", "Fiil", "Zarf", "Edat"
+  verificationStatus String               @default("VERIFIED") // VERIFIED, EDITORIAL, APPROXIMATE, PENDING
+  linguisticNotes    String?
+  isWordOfDay        Boolean              @default(false)
+  viewCount          Int                  @default(0)
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  meanings           WordMeaning[]
+  spellings          WordSpelling[]
+  rootRelations      WordRootRelation[]
+  examples           ExampleSentence[]
+  sourceRelations    WordSourceRelation[]
+  categoryRelations  WordCategoryRelation[]
+  synonyms           SynonymRelation[]     @relation("WordSynonyms")
+  targetSynonyms     SynonymRelation[]     @relation("TargetWordSynonyms")
+  collectionItems    CollectionItem[]
+  quizQuestions      QuizQuestion[]
+
+  @@index([slug])
+  @@index([modernTurkish])
+  @@index([primaryOttoman])
+  @@index([transliteration])
+  @@index([verificationStatus])
+}
+
+model WordSpelling {
+  id           String  @id @default(cuid())
+  wordId       String
+  arabicScript String  // e.g. "تنقيد", "تنقید", "طَنقِيد"
+  spellingType String  // "Klasik İmla", "Matbu İmla", "Harekeli İmla", "Geç Dönem İmlası"
+  translit     String?
+  notes        String?
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@index([wordId])
+  @@index([arabicScript])
+}
+
+model Root {
+  id                 String             @id @default(cuid())
+  slug               String             @unique
+  rootLettersModern  String             // e.g. "H-K-M", "K-T-B", "N-Q-D"
+  rootLettersArabic  String             // e.g. "ح-ك-م", "ك-ت-ب", "ن-ق-د"
+  origin             String             // e.g. "Arapça"
+  primaryMeaning     String             // e.g. "Hükmetme, karar kılma, engelleme"
+  description        String?            // Etymological breakdown and semantics
+  relations          WordRootRelation[]
+  createdAt          DateTime           @default(now())
+
+  @@index([slug])
+  @@index([rootLettersModern])
+  @@index([rootLettersArabic])
+}
+
+model WordRootRelation {
+  id                    String   @id @default(cuid())
+  wordId                String
+  rootId                String
+  morphologicalPattern  String   // Vezin/Bâb: e.g. "Tef'îl (تَفْعِيل)", "Mef'ûl (مَفْعُول)", "Fâ'il (فَاعِل)", "İsm-i Mekân"
+  morphologicalType     String   // "Masdar", "İsm-i Fâil", "İsm-i Mef'ûl", "İsm-i Zaman/Mekân", "Sıfat-ı Müşebbehe"
+  meaningContribution  String   // How the pattern shifts the root meaning
+  orderIndex            Int      @default(0)
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  root Root @relation(fields: [rootId], references: [id], onDelete: Cascade)
+
+  @@unique([wordId, rootId])
+  @@index([wordId])
+  @@index([rootId])
+}
+
+model WordMeaning {
+  id         String  @id @default(cuid())
+  wordId     String
+  orderIndex Int     @default(1)
+  definition String
+  register   String? // "Hukuk", "Edebiyat", "Felsefe", "Mecaz", "Tarih", "Genel"
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@index([wordId])
+}
+
+model ExampleSentence {
+  id             String  @id @default(cuid())
+  wordId         String
+  sentenceModern String
+  sentenceOttoman String? // In Ottoman Arabic script
+  sentenceTranslit String?
+  author         String? // e.g. "Namık Kemal", "Cenap Şahabettin", "Ömer Seyfettin", "Halid Ziya"
+  sourceWork     String? // e.g. "Cezmi", "Mai ve Siyah", "Evrak-ı Perişan"
+
+  word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@index([wordId])
+}
+
+model Source {
+  id          String               @id @default(cuid())
+  title       String               // "Kâmûs-ı Türkî", "Lugat-ı Nâcî", "Devellioğlu", "Kubbealtı Lugatı"
+  author      String               // "Şemseddin Sâmi", "Muallim Nâci", "Ferit Devellioğlu", "İlhan Ayverdi"
+  year        String?              // "1317 / 1900", "1891"
+  description String?
+  relations   WordSourceRelation[]
+}
+
+model WordSourceRelation {
+  id         String  @id @default(cuid())
+  wordId     String
+  sourceId   String
+  pageNumber String?
+  citation   String?
+
+  word   Word   @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  source Source @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@unique([wordId, sourceId])
+  @@index([wordId])
+  @@index([sourceId])
+}
+
+model Category {
+  id          String                 @id @default(cuid())
+  slug        String                 @unique
+  name        String                 // "Edebiyat", "Hukuk", "Felsefe", "Tarih", "Siyaset", "Dinî Kavramlar", "Günlük Hayat", "Bilim", "Yönetim", "Sanat"
+  description String
+  iconName    String                 // Lucide icon name
+  relations   WordCategoryRelation[]
+
+  @@index([slug])
+}
+
+model WordCategoryRelation {
+  id         String   @id @default(cuid())
+  wordId     String
+  categoryId String
+
+  word     Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([wordId, categoryId])
+  @@index([wordId])
+  @@index([categoryId])
+}
+
+model SynonymRelation {
+  id            String  @id @default(cuid())
+  wordId        String
+  synonymWordId String? // If linked to another word in our DB
+  synonymText   String  // The word or phrase
+  nuanceNote    String? // Difference explanation: e.g. "Tenkit tarafsız değerlendirmeyi, takriz övgüyü, teşhir ise kusurları açığa vurmayı ifade eder."
+
+  word        Word  @relation("WordSynonyms", fields: [wordId], references: [id], onDelete: Cascade)
+  synonymWord Word? @relation("TargetWordSynonyms", fields: [synonymWordId], references: [id], onDelete: SetNull)
+
+  @@index([wordId])
+  @@index([synonymWordId])
+}
+
+model VocabularyCollection {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  title       String
+  description String
+  isFeatured  Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  items       CollectionItem[]
+
+  @@index([slug])
+}
+
+model CollectionItem {
+  id           String   @id @default(cuid())
+  collectionId String
+  wordId       String
+  note         String?
+  createdAt    DateTime @default(now())
+
+  collection VocabularyCollection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  word       Word                 @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, wordId])
+  @@index([collectionId])
+  @@index([wordId])
+}
+
+model QuizQuestion {
+  id            String  @id @default(cuid())
+  type          String  // "MEANING_CHOICE", "READING_SCRIPT", "ROOT_FINDING", "EQUIVALENT_MATCH"
+  prompt        String
+  targetScript  String? // Ottoman Arabic text to display if reading exercise
+  options       String  // JSON array of strings
+  correctAnswer String
+  explanation   String
+  relatedWordId String?
+
+  relatedWord Word? @relation(fields: [relatedWordId], references: [id], onDelete: SetNull)
+
+  @@index([type])
+  @@index([relatedWordId])
+}
