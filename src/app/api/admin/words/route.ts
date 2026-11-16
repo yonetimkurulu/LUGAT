@@ -57,8 +57,13 @@ export async function POST(request: NextRequest) {
       morphPattern,
       morphType,
       morphContrib,
+      relationshipType,
       sourceId,
+      volume,
+      pageNumber,
+      entryHeadword,
       citation,
+      verificationLevel,
     } = body;
 
     if (!modernTurkish || !primaryOttoman) {
@@ -110,8 +115,10 @@ export async function POST(request: NextRequest) {
           wordId: word.id,
           rootId,
           morphologicalPattern: morphPattern || "Mücerred Masdar",
-          morphologicalType: morphType || "Masdar",
+          morphologicalType: morphType || "Doğrudan Müştaklar",
           meaningContribution: morphContrib || "Kök manasının vezne dökülmüş hali.",
+          relationshipType: relationshipType || "DIRECT_DERIVATION",
+          relationVerificationStatus: verificationLevel || "PRIMARY_VERIFIED",
         },
       });
     }
@@ -122,7 +129,12 @@ export async function POST(request: NextRequest) {
         data: {
           wordId: word.id,
           sourceId,
+          volume: volume || null,
+          pageNumber: pageNumber || null,
+          entryHeadword: entryHeadword || word.primaryOttoman,
           citation: citation || null,
+          verificationLevel: verificationLevel || "PRIMARY_VERIFIED",
+          verifiedAt: new Date(),
         },
       });
     }
