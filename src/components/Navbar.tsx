@@ -14,6 +14,8 @@ import {
   Menu,
   X,
   Library,
+  BookMarked,
+  Sparkles,
 } from "lucide-react";
 import { getSavedWords } from "@/lib/personalWords";
 
@@ -34,9 +36,10 @@ export default function Navbar() {
   const navLinks = [
     { href: "/sozluk", label: "Sözlük", icon: Search },
     { href: "/kokler", label: "Kök Gezgini", icon: GitFork, badge: "Önemli" },
-    { href: "/kategoriler", label: "Kategoriler", icon: LayoutGrid },
-    { href: "/koleksiyonlar", label: "Koleksiyonlar", icon: Library },
+    { href: "/kutuphane", label: "Kütüphane", icon: Library, badge: "Yeni" },
     { href: "/ogrenme", label: "Talimhane", icon: GraduationCap },
+    { href: "/kategoriler", label: "Kategoriler", icon: LayoutGrid },
+    { href: "/koleksiyonlar", label: "Koleksiyonlar", icon: BookMarked },
     {
       href: "/kelimelik",
       label: "Kelimeliğim",

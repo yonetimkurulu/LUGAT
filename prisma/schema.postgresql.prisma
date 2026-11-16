@@ -229,3 +229,31 @@ model QuizQuestion {
   @@index([difficulty])
   @@index([questionType])
 }
+
+model LibraryText {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  titleOttoman    String
+  author          String
+  authorOttoman   String?
+  genre           String   // "Divan Şiiri", "Hukuk & Mecelle", "Seyahatnâme & Tarih", "Hikmet & Tasavvuf", "Ferman & Belge"
+  period          String   // "16. Yüzyıl (Klasik Dönem)", "19. Yüzyıl (Tanzimat)"
+  century         String?
+  summary         String
+  contentOttoman  String   // Full authentic Ottoman Arabic text
+  contentTranslit String   // Latin transliteration
+  contentModern   String   // Sadeleştirilmiş Türkçe ve şerhi
+  vocabularyJson  String?  // JSON array of key words with meanings
+  readTime        String   @default("5 dk")
+  difficulty      String   @default("Orta") // "Başlangıç", "Orta", "İleri"
+  isFeatured      Boolean  @default(false)
+  viewCount       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([slug])
+  @@index([genre])
+  @@index([author])
+  @@index([isFeatured])
+}

@@ -91,6 +91,12 @@ export default async function HomePage() {
     },
   });
 
+  // Fetch featured library texts
+  const featuredLibraryTexts = await prisma.libraryText.findMany({
+    take: 3,
+    orderBy: [{ isFeatured: "desc" }, { createdAt: "asc" }],
+  });
+
   return (
     <div className="space-y-16 pb-16">
       {/* Hero Section */}
@@ -459,6 +465,77 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* Digital Library Section */}
+        {featuredLibraryTexts.length > 0 && (
+          <section className="space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-4 border-b border-[#E8E1D5]">
+              <div>
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-burgundy-700 uppercase tracking-wider">
+                  <Library className="w-3.5 h-3.5" />
+                  <span>Metin Arşivi</span>
+                </div>
+                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-ink-900 mt-1">
+                  Kütüphane & Klasik Metinler
+                </h2>
+                <p className="text-xs sm:text-sm text-ink-500 font-editorial mt-0.5">
+                  Divan şiiri, Mecelle kaideleri ve seyahatnâmeleri orijinal hattı ve şerhiyle inceleyin.
+                </p>
+              </div>
+              <Link
+                href="/kutuphane"
+                className="text-xs font-semibold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1 shrink-0"
+              >
+                <span>Tüm Kütüphaneyi Gör ({featuredLibraryTexts.length}+ Eser)</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {featuredLibraryTexts.map((text) => (
+                <Link
+                  key={text.id}
+                  href={`/kutuphane/${text.slug}`}
+                  className="group manuscript-panel p-6 bg-white border border-[#E5DDD0] hover:border-burgundy-700 hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="px-2 py-0.5 rounded bg-stone-100 text-ink-700 font-medium">
+                        {text.genre}
+                      </span>
+                      <span className="text-ink-400 text-[11px]">{text.readTime}</span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-heading text-lg font-bold text-ink-900 group-hover:text-burgundy-700 transition-colors">
+                        {text.title}
+                      </h3>
+                      <div
+                        dir="rtl"
+                        className="font-ruqaa text-xl font-bold text-burgundy-800 my-1"
+                      >
+                        {text.titleOttoman}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-ink-500 font-sans">
+                      {text.author} • {text.period}
+                    </p>
+
+                    <p className="text-xs text-ink-600 line-clamp-2 font-editorial leading-relaxed">
+                      {text.summary}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-[#F0EAE1] mt-3 flex items-center justify-between text-xs font-semibold text-burgundy-700">
+                    <span className="text-[11px] text-ink-400 font-normal">Tahlilli Okuma</span>
+                    <span className="group-hover:translate-x-1 transition-transform">Metne Git →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Featured Collections */}
         <section className="space-y-6">
