@@ -8,10 +8,9 @@ export async function GET(
   try {
     const { slug } = await params;
 
-    // Atomically increment view count and fetch
-    const word = await prisma.word.update({
+    // Safely fetch word data via findUnique so read queries never fail if DB write lock is held
+    const word = await prisma.word.findUnique({
       where: { slug },
-      data: { viewCount: { increment: 1 } },
       include: {
         spellings: true,
         meanings: { orderBy: { orderIndex: "asc" } },
@@ -77,6 +76,12 @@ export async function GET(
     if (!word) {
       return NextResponse.json({ error: "Kelime bulunamadı." }, { status: 404 });
     }
+
+    // Safely increment view count without blocking or risking read error
+    prisma.word.update({
+      where: { id: word.id },
+      data: { viewCount: { increment: 1 } },
+    }).catch(() => {});
 
     return NextResponse.json(word);
   } catch (error) {

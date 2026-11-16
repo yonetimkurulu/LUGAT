@@ -36,11 +36,15 @@ export default async function LibraryDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Update view count asynchronously (safe pattern)
-  await prisma.libraryText.update({
-    where: { id: text.id },
-    data: { viewCount: { increment: 1 } },
-  });
+  // Update view count asynchronously (safe pattern: never crash page if DB is locked or readonly)
+  try {
+    await prisma.libraryText.update({
+      where: { id: text.id },
+      data: { viewCount: { increment: 1 } },
+    });
+  } catch (err) {
+    // Silently continue reading
+  }
 
   // Fetch 2 other related texts
   const relatedTexts = await prisma.libraryText.findMany({

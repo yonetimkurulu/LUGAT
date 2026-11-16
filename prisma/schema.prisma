@@ -19,6 +19,10 @@ model Word {
   partOfSpeech       String               // "İsim", "Sıfat", "Fiil", "Zarf", "Edat"
   verificationStatus String               @default("VERIFIED") // VERIFIED, EDITORIAL, APPROXIMATE, PENDING
   linguisticNotes    String?
+  historicalMeaning  String?              // Klasik/Tarihî metinlerdeki asıl anlam
+  contemporaryMeaning String?             // Günümüz Türkçesindeki anlamsal karşılık
+  persianMorphology  String?              // Farsça terkip/ek yapısı
+  turkishSuffixes    String?              // Türkçe yapım ekleri
   isWordOfDay        Boolean              @default(false)
   viewCount          Int                  @default(0)
   createdAt          DateTime             @default(now())
@@ -57,15 +61,19 @@ model WordSpelling {
 }
 
 model Root {
-  id                 String             @id @default(cuid())
-  slug               String             @unique
-  rootLettersModern  String             // e.g. "H-K-M", "K-T-B", "N-Q-D"
-  rootLettersArabic  String             // e.g. "ح-ك-م", "ك-ت-ب", "ن-ق-د"
-  origin             String             // e.g. "Arapça"
-  primaryMeaning     String             // e.g. "Hükmetme, karar kılma, engelleme"
-  description        String?            // Etymological breakdown and semantics
-  relations          WordRootRelation[]
-  createdAt          DateTime           @default(now())
+  id                      String             @id @default(cuid())
+  slug                    String             @unique
+  rootLettersModern       String             // e.g. "H-K-M", "K-T-B", "N-Q-D"
+  rootLettersArabic       String             // e.g. "ح-ك-م", "ك-ت-ب", "ن-ق-د"
+  origin                  String             // e.g. "Arapça"
+  primaryMeaning          String             // e.g. "Hükmetme, karar kılma, engelleme"
+  description             String?            // Etymological breakdown and semantics
+  rootType                String?            @default("SULASI_SALIM") // "SULASI_SALIM", "SULASI_ECVEF", "SULASI_NAKIS", "SULASI_MISAL", "SULASI_MUZAFF", "RUBAI", "TURKISH_ROOT", "PERSIAN_ROOT"
+  lexicalMeaningArabic    String?            // Lisânü'l-Arab / Lane klasik sözlük anlamı
+  ottomanUsageScope       String?            // Osmanlı Türkçesindeki istimal ve intişar sahası
+  primarySourceCitation   String?            // Temel başvuru kaynağı (Kâmûs-ı Türkî, Lisânü'l-Arab, vb.)
+  relations               WordRootRelation[]
+  createdAt               DateTime           @default(now())
 
   @@index([slug])
   @@index([rootLettersModern])
@@ -73,13 +81,17 @@ model Root {
 }
 
 model WordRootRelation {
-  id                    String   @id @default(cuid())
-  wordId                String
-  rootId                String
-  morphologicalPattern  String   // Vezin/Bâb: e.g. "Tef'îl (تَفْعِيل)", "Mef'ûl (مَفْعُول)", "Fâ'il (فَاعِل)", "İsm-i Mekân"
-  morphologicalType     String   // "Masdar", "İsm-i Fâil", "İsm-i Mef'ûl", "İsm-i Zaman/Mekân", "Sıfat-ı Müşebbehe"
-  meaningContribution  String   // How the pattern shifts the root meaning
-  orderIndex            Int      @default(0)
+  id                          String   @id @default(cuid())
+  wordId                      String
+  rootId                      String
+  morphologicalPattern        String   // Vezin/Bâb: e.g. "Tef'îl (تَفْعِيل)", "Mef'ûl (مَفْعُول)", "Fâ'il (فَاعِل)", "İsm-i Mekân"
+  morphologicalType           String   // "Masdar", "İsm-i Fâil", "İsm-i Mef'ûl", "İsm-i Zaman/Mekân", "Sıfat-ı Müşebbehe"
+  relationshipType            String   @default("DIRECT_DERIVATION") // "DIRECT_DERIVATION", "COMPOUND", "SEMANTIC_LOAN", "TURKISH_SUFFIXATION", "SEMANTIC_ASSOCIATION"
+  meaningContribution        String   // How the pattern shifts the root meaning
+  semanticShift               String?  // Kökün asli anlamından Osmanlı Türkçesindeki ıstılah manasına geçiş izahı
+  attestationNote             String?  // Tarihi metin şahidi / edebi kullanım tespiti
+  relationVerificationStatus  String   @default("PRIMARY_VERIFIED") // "PRIMARY_VERIFIED", "ACADEMIC_VERIFIED", "EDITORIAL_NOTE", "UNVERIFIED"
+  orderIndex                  Int      @default(0)
 
   word Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
   root Root @relation(fields: [rootId], references: [id], onDelete: Cascade)
@@ -116,20 +128,33 @@ model ExampleSentence {
 }
 
 model Source {
-  id          String               @id @default(cuid())
-  title       String               // "Kâmûs-ı Türkî", "Lugat-ı Nâcî", "Devellioğlu", "Kubbealtı Lugatı"
-  author      String               // "Şemseddin Sâmi", "Muallim Nâci", "Ferit Devellioğlu", "İlhan Ayverdi"
-  year        String?              // "1317 / 1900", "1891"
-  description String?
-  relations   WordSourceRelation[]
+  id              String               @id @default(cuid())
+  code            String?              @unique // "KT", "LN", "DV", "KB", "LA", "LANE", "MK", "TG", "TDVIA", "TDK"
+  title           String               // "Kâmûs-ı Türkî", "Lugat-ı Nâcî", "Devellioğlu", "Kubbealtı Lugatı", "Lisânü'l-Arab"
+  author          String               // "Şemseddin Sâmi", "Muallim Nâci", "Ferit Devellioğlu", "İlhan Ayverdi", "İbn Manzûr"
+  year            String?              // "1317 / 1900", "1891", "1290"
+  publisher       String?              // "İkdâm Matbaası", "Asır Kütüphânesi", "Kubbealtı Vakfı", "TDV"
+  edition         String?              // "1. Baskı", "Gözden Geçirilmiş 4. Baskı"
+  sourceType      String               @default("PRIMARY_LEXICON") // "PRIMARY_LEXICON", "CLASSICAL_ARABIC", "PERSIAN_LEXICON", "ACADEMIC_STUDY", "ENCYCLOPEDIA", "ETYMOLOGICAL_DICTIONARY"
+  language        String               @default("Osmanlı Türkçesi") // "Osmanlı Türkçesi", "Arapça", "Farsça", "Türkiye Türkçesi", "İngilizce"
+  digitalUrl      String?              // "https://sozluk.gov.tr/", "https://islamansiklopedisi.org.tr/"
+  copyrightNote   String?              // "Kamu Malı (Public Domain)", "Akademik Atıf Kapsamında", vb.
+  description     String?
+  relations       WordSourceRelation[]
+
+  @@index([code])
 }
 
 model WordSourceRelation {
-  id         String  @id @default(cuid())
-  wordId     String
-  sourceId   String
-  pageNumber String?
-  citation   String?
+  id                String   @id @default(cuid())
+  wordId            String
+  sourceId          String
+  volume            String?  // e.g. "Cilt 1"
+  pageNumber        String?  // e.g. "s. 482"
+  entryHeadword     String?  // Sözlükteki asıl madde başı imlası ve transkripsiyonu
+  citation          String?  // İlgili tarif ve lügat şerhi
+  verificationLevel String   @default("PRIMARY_VERIFIED") // "PRIMARY_VERIFIED", "ACADEMIC_VERIFIED", "PARTIALLY_VERIFIED", "EDITORIAL_NOTE", "APPROXIMATE", "UNVERIFIED", "DISPUTED"
+  verifiedAt        DateTime @default(now())
 
   word   Word   @relation(fields: [wordId], references: [id], onDelete: Cascade)
   source Source @relation(fields: [sourceId], references: [id], onDelete: Cascade)

@@ -248,6 +248,32 @@ export default async function WordDetailPage({ params }: PageProps) {
                 </div>
               ))}
             </div>
+
+            {/* Historical vs Contemporary Meaning Nuance */}
+            {(word.historicalMeaning || word.contemporaryMeaning) && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                {word.historicalMeaning && (
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-[#FAF7F2] to-white border border-[#E2D7C7] shadow-xs">
+                    <span className="text-[11px] uppercase tracking-wider font-semibold text-burgundy-800 font-sans block mb-1">
+                      Klasik / Tarihî Metin Anlamı:
+                    </span>
+                    <p className="text-sm text-ink-800 font-editorial leading-relaxed">
+                      {word.historicalMeaning}
+                    </p>
+                  </div>
+                )}
+                {word.contemporaryMeaning && (
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-[#F8FAFC] to-white border border-[#CBD5E1] shadow-xs">
+                    <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-700 font-sans block mb-1">
+                      Günümüz Türkçesi Anlamsal Karşılığı:
+                    </span>
+                    <p className="text-sm text-ink-800 font-editorial leading-relaxed">
+                      {word.contemporaryMeaning}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Synonyms with Nuance Notes */}
@@ -355,15 +381,28 @@ export default async function WordDetailPage({ params }: PageProps) {
                     key={sr.id}
                     className="p-3.5 rounded-lg bg-stone-50 border border-stone-200 text-xs space-y-1"
                   >
-                    <div className="font-bold text-ink-900">
-                      {sr.source.title} ({sr.source.year})
+                    <div className="font-bold text-ink-900 flex items-center justify-between gap-2">
+                      <span className="truncate">{sr.source.title} ({sr.source.year})</span>
+                      {sr.verificationLevel && (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 shrink-0 font-sans font-medium">
+                          {sr.verificationLevel === "PRIMARY_VERIFIED"
+                            ? "Asıl Nüsha Doğrulamalı"
+                            : "Akademik Kaynak"}
+                        </span>
+                      )}
                     </div>
-                    <div className="text-ink-600">
-                      Müellif: {sr.source.author}
-                      {sr.pageNumber ? ` • Sahife: ${sr.pageNumber}` : ""}
+                    <div className="text-ink-600 space-x-1">
+                      <span>Müellif: {sr.source.author}</span>
+                      {sr.volume && <span>• Cilt: {sr.volume}</span>}
+                      {sr.pageNumber && <span>• Sahife: {sr.pageNumber}</span>}
+                      {sr.entryHeadword && (
+                        <span className="text-burgundy-800 font-medium">
+                          • Madde Başı: [{sr.entryHeadword}]
+                        </span>
+                      )}
                     </div>
                     {sr.citation && (
-                      <div className="italic text-ink-500 pt-1 border-t border-stone-200">
+                      <div className="italic text-ink-500 pt-1.5 border-t border-stone-200 text-[11px] leading-relaxed">
                         "{sr.citation}"
                       </div>
                     )}

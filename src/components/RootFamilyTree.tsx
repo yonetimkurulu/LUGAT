@@ -43,19 +43,21 @@ export default function RootFamilyTree({
   root,
   highlightWordSlug,
 }: RootFamilyTreeProps) {
+  const validRelations = (root?.relations || []).filter((r) => r && r.word);
+
   const [selectedRel, setSelectedRel] = useState<RelationItem | null>(() => {
     if (highlightWordSlug) {
-      const found = root.relations.find((r) => r.word.slug === highlightWordSlug);
+      const found = validRelations.find((r) => r.word?.slug === highlightWordSlug);
       if (found) return found;
     }
-    return root.relations[0] || null;
+    return validRelations[0] || null;
   });
 
   const [activeTab, setActiveTab] = useState<"tree" | "table">("tree");
 
   // Group derivatives by morphological type
   const categories: Record<string, RelationItem[]> = {};
-  for (const rel of root.relations) {
+  for (const rel of validRelations) {
     const type = rel.morphologicalType || "Müştak Kelimeler";
     if (!categories[type]) categories[type] = [];
     categories[type].push(rel);
@@ -133,7 +135,7 @@ export default function RootFamilyTree({
             {/* Connecting decorative vertical stem */}
             <div className="w-0.5 h-8 bg-gradient-to-b from-burgundy-800 to-gold-500 my-1" />
             <div className="px-3 py-1 rounded-full bg-gold-100 border border-gold-300 text-gold-800 text-[11px] font-medium">
-              {root.relations.length} Doğrulanmış Türev / Müştak
+              {validRelations.length} Doğrulanmış Türev / Müştak
             </div>
           </div>
 

@@ -112,6 +112,33 @@ export default async function RootDetailPage({ params }: PageProps) {
                 </p>
               </div>
             )}
+
+            {root.lexicalMeaningArabic && (
+              <div className="space-y-1 bg-white p-5 rounded-xl border border-[#EAE2D5] shadow-xs">
+                <span className="font-heading font-bold text-sm text-burgundy-900 block mb-1">
+                  Klasik Kök Anlamı (Lisânü'l-Arab / Lane):
+                </span>
+                <p className="text-ink-800 leading-relaxed font-editorial text-[14px]">
+                  {root.lexicalMeaningArabic}
+                </p>
+                {root.primarySourceCitation && (
+                  <span className="text-[11px] text-ink-500 font-serif italic block pt-1.5 border-t border-[#F0EAE1] mt-2">
+                    Başvuru: {root.primarySourceCitation}
+                  </span>
+                )}
+              </div>
+            )}
+
+            {root.ottomanUsageScope && (
+              <div className="space-y-1 bg-white p-5 rounded-xl border border-[#EAE2D5] shadow-xs">
+                <span className="font-heading font-bold text-sm text-burgundy-900 block mb-1">
+                  Osmanlı Türkçesi Anlam Sahası:
+                </span>
+                <p className="text-ink-800 leading-relaxed font-editorial text-[14px]">
+                  {root.ottomanUsageScope}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
