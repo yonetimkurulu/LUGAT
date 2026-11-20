@@ -87,6 +87,12 @@ export default async function LibraryDetailPage({ params }: PageProps) {
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-stone-100 text-ink-700 border border-stone-200">
               {text.period}
             </span>
+            {text.poeticMeter && (
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300 font-serif italic flex items-center gap-1">
+                <Compass className="w-3 h-3 text-amber-700" />
+                <span>{text.poeticMeter}</span>
+              </span>
+            )}
             <div className="flex items-center gap-1 text-xs text-ink-500 ml-auto">
               <Clock className="w-3.5 h-3.5 text-gold-600" />
               <span>{text.readTime} okuma süresi</span>

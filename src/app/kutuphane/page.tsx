@@ -45,10 +45,11 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
 
   const genres = [
     "Tümü",
+    "Lügat & Dil Manifestosu",
     "Divan Şiiri",
     "Hukuk & Mecelle",
+    "Hikmet & Tasavvuf",
     "Seyahatnâme & Tarih",
-    "Divan & Tanzimat Edebiyatı",
     "Ferman & Belge",
   ];
 
@@ -179,9 +180,16 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
 
             {/* Footer Action */}
             <div className="pt-5 mt-4 border-t border-[#F0EAE1] flex items-center justify-between">
-              <span className="text-[11px] px-2 py-0.5 rounded bg-gold-50 text-gold-800 border border-gold-200 font-medium">
-                {text.difficulty} Seviye
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[11px] px-2 py-0.5 rounded bg-gold-50 text-gold-800 border border-gold-200 font-medium">
+                  {text.difficulty} Seviye
+                </span>
+                {text.poeticMeter && (
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200 font-serif italic hidden sm:inline">
+                    Aruz
+                  </span>
+                )}
+              </div>
 
               <Link
                 href={`/kutuphane/${text.slug}`}

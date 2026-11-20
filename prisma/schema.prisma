@@ -261,6 +261,9 @@ model LibraryText {
   contentTranslit String   // Latin transliteration
   contentModern   String   // Sadeleştirilmiş Türkçe ve şerhi
   vocabularyJson  String?  // JSON array of key words with meanings
+  poeticMeter     String?  // Aruz vezni örn: "Mef'ûlü Mefâîlü Feûlün"
+  manuscriptImageUrl String? // El yazması / taş baskı tıpkıbasım görseli
+  annotationsJson String?  // Edebi sanatlar ve dipnot şerhleri
   readTime        String   @default("5 dk")
   difficulty      String   @default("Orta") // "Başlangıç", "Orta", "İleri"
   isFeatured      Boolean  @default(false)

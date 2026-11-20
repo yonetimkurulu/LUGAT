@@ -266,6 +266,9 @@ model LibraryText {
   contentTranslit String
   contentModern   String
   vocabularyJson  String?
+  poeticMeter     String?
+  manuscriptImageUrl String?
+  annotationsJson String?
   readTime        String   @default("5 dk")
   difficulty      String   @default("Orta")
   isFeatured      Boolean  @default(false)

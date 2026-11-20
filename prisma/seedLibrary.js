@@ -1,6 +1,6 @@
 /**
  * LÜGAT — Dijital Kütüphane ve Klasik Eserler Tohumlama Dosyası
- * Divan Edebiyatı, Mecelle, Seyahatnâme, Fermanlar ve Edebi Şaheserler
+ * Divan Edebiyatı, Mecelle, Sözlükçülük, Seyahatnâme, Hikmet ve Fermanlar
  */
 
 if (!process.env.DATABASE_URL) {
@@ -11,6 +11,287 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const libraryTexts = [
+  // 1. KÂMÛS-I TÜRKÎ MUKADDİMESİ — ŞEMSEDDİN SAMİ (1901)
+  {
+    slug: "kamus-i-turki-mukaddimesi-semseddin-sami",
+    title: "Kâmûs-ı Türkî Mukaddimesi",
+    titleOttoman: "قاموس عثمانی ياخود قاموس تركی مقدمه‌سی",
+    author: "Şemseddin Sami",
+    authorOttoman: "شمس الدين سامی",
+    genre: "Lügat & Dil Manifestosu",
+    period: "20. Yüzyıl Başı (1901)",
+    century: "20. yy",
+    readTime: "9 dk",
+    difficulty: "Orta",
+    isFeatured: true,
+    poeticMeter: "Mensur (Akademik & Edebi Nesir)",
+    manuscriptImageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80",
+    summary:
+      "Osmanlı matbuatında 'Türkçe' adıyla neşredilen ilk büyük sözlük olan Kâmûs-ı Türkî'nin, Türk dilinin zenginliğini, Türkçe kökleri, Arapça ve Farsça kelimelerin tasarruf usulünü ilan eden tarihi mukaddimesi.",
+    contentOttoman: `لسانمزك شمديكه قدر بر قاموس طام ومكملنه تصادف اولنمامشدر.
+يالكز عربجهدن و فارسجهدن لسانمزه كچمش اولان لغات ايله تركيبيات دخى لسانمزك عينى صايلمش، تركى الاصل اولان اصيل الفاظ ايسه نظر اعتبارده كافى مرتبهده توتلمامشدر.
+حال بوكه بر لسانك اساسی، قواعد صرفيه و نحويه‌سی ايله اصيل مادري الفاظندر.
+بر لسان باشقه بر لساندن نه قدر زياده لغت آلورسه آلسون، كندو مايتنى و كندو اسلوبنى قايپ ايتمز.
+عربجهدن آلدغمز لغاتى دخى بيز كندو لسانمزك تلفظ و صرفنه اويدرمش، آنلرى تركلشديرمشزدر.
+بناءً عليه بو قاموسده مقصديمز، لسانمزده مستعمل اولان كافهء الفاظى احاطه ايتمك، تركى الفاظى آيرى بر اعتناء ايله تدقيق ايله‌مك و معانيلرينى حقيقتى اوزره بيان ايتمكدر.`,
+    contentTranslit: `Lisânımızın şimdiyedek bir kâmûs-ı tâm ve mükemmeline tesâdüf olunmamışdır.
+Yalnız Arabcadan ve Fârisîden lisânımıza geçmiş olan lügāt ile terkîbiyyât dahî lisânımızın aynı sayılmış, Türkî’l-asl olan asîl elfâz ise nazar-ı i‘tibârda kâfî mertebede tutulmamışdır.
+Hâl bu ki bir lisânın esâsı, kavâ‘id-i sarfiyye ve nahviyyesi ile asîl mâderî elfâzıdır.
+Bir lisân başka bir lisândan ne kadar ziyâde lügat alursa alsun, kendü mâhiyyetini ve kendü üslûbunu gâyib itmez.
+Arabcadan aldığımız lügātı dahî biz kendü lisânımızın telaffuz ve sarfına uydurmuş, anları Türkleşdirmişizdir.
+Binâenaleyh bu kâmûsda maksadımız, lisânımızda müsta‘mel olan kâffe-i elfâzı ihâta itmek, Türkî elfâzı ayrı bir i‘tinâ ile tedkīk eylemek ve ma‘ânîlerini hakīkati üzere beyân itmekdir.`,
+    contentModern: `Dilimizin şimdiye kadar tam ve mükemmel bir sözlüğüne rastlanmamıştır.
+Yalnızca Arapça ve Farsçadan dilimize geçmiş olan kelimeler ile terkipler dilimizin kendisi sayılmış, asıl Türkçe kökenli olan öz kelimeler ise gereken değer ve itibarı görmemiştir.
+Oysa ki bir dilin esası; dilbilgisi kuralları ile onun anadilden gelen asıl öz kelimeleridir.
+Bir dil, başka bir dilden ne kadar çok kelime ödünç alırsa alsın, kendi mahiyetini ve üslubunu asla kaybetmez.
+Arapçadan aldığımız kelimeleri dahi biz kendi dilimizin ses ve telaffuz yapısına uydurmuş, onları millileştirip Türkçeleştirmişizdir.
+Bu sebeple bu sözlükteki gayemiz; dilimizde kullanılan bütün kelimeleri kuşatmak, Türkçe kelimeleri özel bir itina ile incelemek ve anlamlarını hakikati üzere açıklamaktır.`,
+    vocabularyJson: JSON.stringify([
+      { word: "Kâmûs (قاموس)", meaning: "Büyük lügat, okyanus gibi geniş sözlük", root: "K-M-S" },
+      { word: "Elfâz (الفاظ)", meaning: "Lafızlar, kelimeler, sözler", root: "L-F-Z" },
+      { word: "Terkîbiyyât (تركيبات)", meaning: "Birleşik kelimeler ve izafet tamlamaları", root: "R-K-B" },
+      { word: "Mâderî (مادری)", meaning: "Anadilden gelen, asıl köke ait olan", root: "Farsça mâder" },
+      { word: "Müsta‘mel (مستعمل)", meaning: "Halk ve edebiyat tarafından kullanılan, tedavüldeki söz", root: "A-M-L" },
+      { word: "İhâta (احاطه)", meaning: "Bütünüyle kuşatmak, içine almak", root: "H-V-T" },
+    ]),
+    annotationsJson: JSON.stringify([
+      { lineIndex: 1, note: "Şemseddin Sami'nin burada zikrettiği 'Türkî'l-asl' tabiri, 19. yüzyıl sonunda başlayan Türkçülük ve milli lisan hareketinin temel manifestosudur." },
+      { lineIndex: 4, note: "Osmanlı Türkçesinin Arapça kelimeleri kendi ses ahengine (Türkçe galat-ı meşhur kaidesine) göre tasarruf ettiğinin altı çizilmektedir." }
+    ])
+  },
+
+  // 2. ŞEYH GÂLİB — HÜSN Ü AŞK (1787)
+  {
+    slug: "husn-u-ask-seyh-galib",
+    title: "Hüsn ü Aşk (Aşk Yolunun Çileleri)",
+    titleOttoman: "حسن و عشق (شيخ غالب)",
+    author: "Şeyh Gâlib (Mehmed Esad)",
+    authorOttoman: "شيخ غالب",
+    genre: "Divan Şiiri",
+    period: "18. Yüzyıl (Sebk-i Hindî Zirvesi)",
+    century: "18. yy",
+    readTime: "7 dk",
+    difficulty: "İleri",
+    isFeatured: true,
+    poeticMeter: "Mef'ûlü Mefâîlü Feûlün (Hezec Bahri)",
+    manuscriptImageUrl: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80",
+    summary:
+      "Divan edebiyatının son büyük dehası Şeyh Gâlib'in, aşk yolunda sülûk eden sâlikin çektiği çileleri, Mumdan Gemilerle Ateş Denizini geçişini anlatan sembolik tasavvuf şaheseri.",
+    contentOttoman: `١. بر آتشين بحردر بو ياراشوق
+كيم كچمكدور مومدن كمیلرلن
+٢. بن اولدكجه محبت تازه اولسون
+غمم دلده هميشه بي اندازه اولسون
+٣. اسندن ناله لردن يار يانارمي
+جفادن عاشق بيچاره اوتانارمي
+٤. دكل شاعيرلك ايلن مقصديم لاف
+بيان عشق ايلن ايلرم طواف
+٥. اسراب حقيقت سوزلرمدور
+جمال معني يار اولمش كوزلرمدور`,
+    contentTranslit: `1. Bir âteşîn bahrdir bu yâr-ı âşık
+Kim geçmekdür mumdan gemilerlen!
+2. Ben öldükçe muhabbet tâze olsun
+Gamım dilde hemîşe bî-endâze olsun!
+3. Esen nâlelerden yâr usanur mı
+Cefâdan âşık-ı bî-çâre utanur mı!
+4. Değil şâ‘irlik ile maksadım lâf
+Beyân-ı aşk ile eylerem tavâf!
+5. Esrâr-ı hakīkat sözlerimdür
+Cemâl-i ma‘nî yâr olmuş gözlerimdür!`,
+    contentModern: `1. Bu aşk ve sevda yolu öyle alevden bir denizdir ki; o denizi ancak mumdan yapılmış gemilerle geçmek gerekir! (Ateşe girince mum hemen erir; âşık da yokluğa ermeden bu yolu aşamaz).
+2. Ben bu yolda fani olup yok oldukça hakiki sevgi ve muhabbet tazelensin; gönlümdeki dert ve çile daima sınırsız ve hesapsız olsun!
+3. Gönülden kopup esen feryatlardan sevgili hiç usanır mı? Âşık olan çaresiz kimse çektiği cefa ve çileden hiç utanıp vazgeçer mi?
+4. Benim şiir yazmaktaki maksadım asla boş söz veya kuruluk lakırdısı değildir; ben aşk hakikatini terennüm ederek maneviyat Kâbe'sini tavaf ediyorum!
+5. Söylediğim sözler hakikat sırlarının ta kendisidir; gözlerim artık mana güzelliğiyle nurlanmış ve hakikatin cemaline ermiştir.`,
+    vocabularyJson: JSON.stringify([
+      { word: "Âteşîn (آتشين)", meaning: "Ateşli, yangın gibi parlayan", root: "Farsça âteş" },
+      { word: "Bahr (بحر)", meaning: "Uçsuz bucaksız deniz, derya", root: "B-H-R" },
+      { word: "Bî-endâze (بی اندازه)", meaning: "Ölçüsüz, sınırsız, hadsiz", root: "Farsça bî + endâze" },
+      { word: "Nâle (ناله)", meaning: "İnilti, yürekten kopan feryat", root: "Farsça" },
+      { word: "Esrâr (اسرار)", meaning: "Sırlar, bâtınî hakikatler", root: "S-R-R (Sırr çoğulu)" },
+      { word: "Cemâl (جمال)", meaning: "Yüz güzelliği, ilahi nûr ve tecelli", root: "C-M-L" },
+    ]),
+    annotationsJson: JSON.stringify([
+      { lineIndex: 1, note: "Sebk-i Hindî'nin en meşhur imgesi: 'Ateş denizini mumdan gemiyle geçmek'. İmkânsızlık içinde aşkın teslimiyetini ifade eder." },
+      { lineIndex: 4, note: "Şair, sanatını sadece lafız oyunu değil, manevi bir ibadet ve tavaf derecesinde gördüğünü belirtmektedir." }
+    ])
+  },
+
+  // 3. MECELLE-İ AHKÂM-I ADLİYYE (1-15 GENİŞLETİLMİŞ KÜLLÎ KAİDELER)
+  {
+    slug: "mecelle-kulli-kaideler",
+    title: "Mecelle-i Ahkâm-ı Adliyye (Küllî Kaideler)",
+    titleOttoman: "مجلهء احكام عدليه (قواعد كليه)",
+    author: "Ahmed Cevdet Paşa (Mecelle Cemiyeti Reisi)",
+    authorOttoman: "احمد جودت پاشا",
+    genre: "Hukuk & Mecelle",
+    period: "19. Yüzyıl (Tanzimat Devri)",
+    century: "19. yy",
+    readTime: "10 dk",
+    difficulty: "İleri",
+    isFeatured: true,
+    poeticMeter: "Mensur Hukuk Dili (Küllî Kaideler)",
+    manuscriptImageUrl: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
+    summary:
+      "Osmanlı hukuk felsefesinin ve İslam medeni kanununun şaheseri olan Mecelle'nin temel umdelerini belirleyen, adaletin ve fıkhın evrensel ilkelerini ortaya koyan külli kaideler.",
+    contentOttoman: `ماده ٢: بر ايشده تصدق مقاصده كوره در، يعنى بر كيمسه‌نك فعلى نيتنه كوره حكم اولنور (الامور بمقاصدها).
+ماده ٤: يقين شك ايله زايل اولماز (اليقين لا يزول بالشك).
+ماده ٥: بر شيك بولندغى حال اوزره قالمسى اصلدر (الاستصحاب).
+ماده ٦: قديم قدمى اوزره ترك اولنور.
+ماده ٧: ضرر قديم اولماز.
+ماده ٨: برائت ذمت اصلدر. بنابرين بر كيمسه برينه بر وجهله بورجلى ادعا ايدرسه اثبات ايده مدكجه ادعاسى مسموع اولماز.
+ماده ١٢: كلامده اصل اولان حقيقتدر. يعنى بر لفظك حقيقى معناسى ممكن اولدقجه مجازه عدول اولنماز.
+ماده ١٧: مشقت تيسيرى جلب ايدر. يعنى ضيق و صعوبت كورلدكده انشراح و سهولت احكامى تأنس ايدر.
+ماده ١٨: بر ايش ضيق اولدقده وسعت پيدا ايدر.
+ماده ١٩: ضرر و ضرار يوقدر (لا ضرر ولا ضرار).
+ماده ٢٠: ضرر ازاله اولنور.
+ماده ٢١: ضرر اشد، ضرر اخف ايله ازاله اولنور.
+ماده ٢٦: ضرر عامى دفع ايچون ضرر خاص اختيار اولنور.
+ماده ٣٠: درء مفاسد جلب منافعدن اولادر.
+ماده ٣٦: عادت محكمه در. يعنى عرف و عادت شرعاً حكم ايده جك در جهده اعتبار قلنور.`,
+    contentTranslit: `Madde 2: Bir işten maksat ne ise hüküm ona göredir (El-umûru bi-makāsıdihâ).
+Madde 4: Yakîn şekk ile zâil olmaz (El-yakīnu lâ-yezûlu bi'ş-şekk).
+Madde 5: Bir şeyin bulunduğu hâl üzere kalması asıldır (İstıshâb).
+Madde 6: Kadîm kıdemi üzere terk olunur.
+Madde 7: Zarar kadîm olmaz.
+Madde 8: Berâet-i zimmet asıldır. Binâenaleyh bir kimse birine bir vechile borçlu iddi‘â iderse isbât idemezse iddi‘âsı mesmû‘ olmaz.
+Madde 12: Kelâmda asıl olan hakīkattir.
+Madde 17: Meşakkat teysîri celbeder (El-meşakkatu teclibu't-teysîr).
+Madde 18: Bir iş dıyk oldukta vüs‘at peydâ eder.
+Madde 19: Zarar ve dırâr yokdur (Lâ zarara ve lâ dırâr).
+Madde 20: Zarar izâle olunur (Ed-dararu yüzâl).
+Madde 21: Zarar-ı eşedd zarar-ı ehaf ile izâle olunur.
+Madde 26: Zarar-ı âmmı def‘ içün zarar-ı hâss ihtiyâr olunur.
+Madde 30: Der’-i mefâsid celb-i menâfi‘den evlâdır.
+Madde 36: ‘Âdet muhakkemdir (El-‘âdetu muhakkemetün).`,
+    contentModern: `Madde 2: Bir işten maksat ve niyet ne ise hüküm ona göre verilir; fiiller niyetlere göre değerlendirilir.
+Madde 4: Kesin olarak bilinen bir gerçek (yakîn), sonradan ortaya çıkan şüphe ile ortadan kalkmaz.
+Madde 5: Bir durumun aksine delil olmadıkça eski hali üzere devam ettiği kabul edilir.
+Madde 6: Eskiden beri meşru surette devam edegelen bir hak veya uygulama, eski hali üzere bırakılır.
+Madde 7: Bir zararın eskiden beri var olması ona meşruiyet kazandırmaz; kadim de olsa zarar izale edilir.
+Madde 8: Borçsuz ve suçsuz olmak asıldır (masumiyet karinesi). Bir kimse başkasının borçlu olduğunu iddia ederse, ispat etmedikçe sözüne itibar edilmez.
+Madde 12: Sözde asıl olan hakiki manadır; hakikat manası varken mecaza başvurulmaz.
+Madde 17: Güçlük ve meşakkat, kolaylığı celbeder; zorluk karşısında şeriat ruhsat ve kolaylık hükümleri tanır.
+Madde 18: Bir işte darlık ve sıkıntı baş gösterdiğinde genişlik ve çıkış yolu peyda olur.
+Madde 19: Ne doğrudan haksız yere zarar vermek ne de zarara zararla karşılık vermek meşrudur.
+Madde 20: Meydana gelen zarar mutlaka giderilir ve tazmin edilir.
+Madde 21: Daha şiddetli bir zarar, daha hafif bir zarara katlanılarak bertaraf edilir.
+Madde 26: Toplumun umumi zararını önlemek için fertlerin hususi zararına katlanılması tercih olunur (kamu yararı).
+Madde 30: Kötülükleri ve fesadı defetmek, menfaat ve fayda sağlamaktan daha önceliklidir.
+Madde 36: Toplumda yerleşmiş örf ve teamül, nassa aykırı olmadıkça hakem ve kanun hükmündedir.`,
+    vocabularyJson: JSON.stringify([
+      { word: "Yakîn (يقين)", meaning: "Şüphesiz ve kesin bilgi", root: "Y-Q-N" },
+      { word: "Zâil (زايل)", meaning: "Yok olan, ortadan kalkan", root: "Z-V-L" },
+      { word: "Berâet-i Zimmet (برائت ذمت)", meaning: "Kişinin borçsuz ve suçsuz olması asıldır", root: "B-R-A ve Z-M-M" },
+      { word: "Teysîr (تيسير)", meaning: "Kolaylaştırma, zorluğu giderme", root: "Y-S-R" },
+      { word: "Mefâsid (مفاسد)", meaning: "Bozukluklar, zararlar, fesatlar", root: "F-S-D" },
+      { word: "Muhakkem (محكم)", meaning: "Hüküm veren, kanun gibi bağlayıcı olan", root: "H-K-M" },
+    ]),
+    annotationsJson: JSON.stringify([
+      { lineIndex: 5, note: "Madde 8, modern ceza ve medeni hukuktaki 'Masumiyet Karinesi'nin (Presumption of Innocence) klasik fıkıhtaki kusursuz formülasyonudur." },
+      { lineIndex: 13, note: "Madde 30: Kamusal fayda temin etmektense cemiyetteki bozgunculuk ve haksızlığı engellemenin öncelikli olduğunu belirten temel idare hukuku prensibi." }
+    ])
+  },
+
+  // 4. ERZURUMLU İBRAHİM HAKKI — MÂRİFETNÂME (1756)
+  {
+    slug: "marifetname-ibrahim-hakki",
+    title: "Mârifetnâme (Kalp ve İrfan Faslı)",
+    titleOttoman: "معرفتنامه (حقايق دل و انسان)",
+    author: "Erzurumlu İbrâhim Hakkı",
+    authorOttoman: "ابراهيم حقی ارضرومی",
+    genre: "Hikmet & Tasavvuf",
+    period: "18. Yüzyıl (Osmanlı İrfan Çağı)",
+    century: "18. yy",
+    readTime: "8 dk",
+    difficulty: "Orta",
+    isFeatured: true,
+    poeticMeter: "Mensur ve Manzum Hikmet",
+    manuscriptImageUrl: "https://images.unsplash.com/photo-1532012164546-f432f2e3dd76?auto=format&fit=crop&w=1200&q=80",
+    summary:
+      "18. yüzyıl Osmanlısının en mühim ansiklopedik eseri; kozmoloji, anatomi, ahlak ve tasavvufun meczedildiği Mârifetnâme'nin 'Gönül Aynası ve Hakikati Arama' hikmeti.",
+    contentOttoman: `اى عزيز! بلكل كيم حق تعالى انسانى كندو صورت معنويه‌سنده خلق ايلدى.
+عالمده نه وار ايسه جمله سنك انموذجنى انسانك وجودنده درج ايلدى.
+كوك يوزى كبى انسانك عقلى، كونش كبى روحی، آى كبى قلبى، يلدزلر كبى حواس ظاهره و باطنه سی واردر.
+قلب بر مرآت مجلادركيم حقك انوار تجليسى آنده ظاهر اولور.
+هر كاه كيم قلب كدورات دنيويه‌دن و اخلاق ذميمه‌دن پاك و مصفا اولور، اول مرآتده حقائق اشياء اولدوغى كبى نمايان اولور.
+حق شرلرى خير ايلر / زن ايتمه كه غير ايلر / عارف آنى سير ايلر / مولا كوره لم نيلر / نيلرسه كوزل ايلر.`,
+    contentTranslit: `Ey azîz! Bilgil kim Hak Te‘âlâ insânı kendü sûret-i ma‘neviyyesinde halk eyledi.
+‘Âlemde ne var ise cümlesinin ünmûzecini insânın vücûdunda derc eyledi.
+Gök yüzü gibi insânın ‘aklı, güneş gibi rûhu, ay gibi kalbi, yıldızlar gibi havâss-ı zâhire ve bâtınası vardır.
+Kalb bir mir’ât-ı mücellâdır kim Hakk'ın envâr-ı tecellîsi anda zâhir olur.
+Her gâh kim kalb küdûrât-ı dünyeviyyeden ve ahlâk-ı zemîmeden pâk ve musaffâ olur, ol mir’âtde hakāyık-ı eşyâ olduğu gibi nümâyân olur.
+Hak şerleri hayr eyler / Zannetme ki gayr eyler / ‘Ârif anı seyr eyler / Mevlâ görelim neyler / Neylerse güzel eyler.`,
+    contentModern: `Ey aziz dost! Bilmiş ol ki Yüce Allah insanı kendi manevi suretinde, varlığın özü olarak yarattı.
+Bütün kâinatta ne varsa hepsinin küçük bir numunesini (özetini) insanın varlığında dercetmiştir.
+Gökyüzü gibi insanın aklı, güneş gibi parıldayan ruhu, ay gibi nurlanan kalbi ve yıldızlar gibi iç ve dış duyuları vardır.
+Gönül cilalanmış berrak bir aynadır ki, Hakk'ın tecelli nurları ancak onda aşikâr olur.
+Gönül dünyevi kederlerden, tortulardan ve kötü ahlaktan temizlenip arındığı vakit; eşyanın hakikatleri o aynada apaçık görünür.
+Allah şer gibi görünen şeyleri hayra tebdil eder; zannetme ki bundan başkasını yapar; hakikati bilen arif bunu hayretle seyreder; Mevlâ görelim neyler, ne eylerse güzel eyler!`,
+    vocabularyJson: JSON.stringify([
+      { word: "Ünmûzec (انموذج)", meaning: "Numune, model, küçük örnek", root: "Farsça nümûne" },
+      { word: "Derc (درج)", meaning: "İçine koymak, yerleştirmek", root: "D-R-C" },
+      { word: "Mir'ât-ı Mücellâ (مرآت مجلا)", meaning: "Pasından arınmış, cilalanmış ayna", root: "R-A-Y ve C-L-V" },
+      { word: "Küdûrât (كدورات)", meaning: "Bulanıklıklar, kederler, tortular", root: "K-D-R" },
+      { word: "Musaffâ (مصفى)", meaning: "Süzülmüş, saf kılınmış", root: "S-F-A" },
+      { word: "Nümâyân (نمايان)", meaning: "Görünen, aşikâr olan", root: "Farsça nümûden" },
+    ]),
+    annotationsJson: JSON.stringify([
+      { lineIndex: 1, note: "Klasik İslam düşüncesindeki 'Mikrokozmos - Makrokozmos' (İnsan Âlem-i Asgar, Kâinat Âlem-i Ekberdir) anlayışının edebiyata yansıması." },
+      { lineIndex: 5, note: "Erzurumlu İbrahim Hakkı'nın meşhur Tefvîznâme manzumesinin taç beyti." }
+    ])
+  },
+
+  // 5. NÂBÎ — HAYRİYYE (1701)
+  {
+    slug: "hayriyye-i-nabi-oguda-nasihat",
+    title: "Hayriyye (Oğula İlim ve Lisan Nasihati)",
+    titleOttoman: "خيريهء نابی (نصيحت كودك)",
+    author: "Nâbî (Yusuf Nâbî)",
+    authorOttoman: "نابی",
+    genre: "Hikmet & Edebiyat",
+    period: "17. Yüzyıl (Klasik Hikemî Şiir)",
+    century: "17. yy",
+    readTime: "6 dk",
+    difficulty: "Orta",
+    isFeatured: false,
+    poeticMeter: "Mef'ûlü Mefâîlü Feûlün",
+    summary:
+      "Hikemi şiirin piri Nâbî'nin oğlu Ebülhayr Mehmed Çelebi'ye yazdığı, ilim tahsili, dil terbiyesi ve dünya hırsından sakınmayı öğütleyen şaheser mesnevi.",
+    contentOttoman: `١. علمدر اول ذاته شرف كيم كره ك
+علمسز اولسه كشى حيدر كره ك
+٢. كيمده كيم علم اولور اول معتبردر
+علمسز آدم قورو بر شجردر
+٣. الفاظى كوزل طوت لسانك پاك اولسون
+سوزك هر ييرده عزيز و چالاک اولسون
+٤. حقدن ايسته كيم كشاده ايده درگاه
+علم و حكمتله دل اولسون آگاه
+٥. طمعي قوى ايدوب دهره الدانمه
+دنيانك رنكنه زنهار قوشانمه`,
+    contentTranslit: `1. ‘İlmdir ol zâta şeref kim gerek
+‘İlmsiz olsa kişi haydar gerek!
+2. Kimde kim ‘ilm olur ol mu‘teberdir
+‘İlmsiz âdem kuru bir şecerdir!
+3. Elfâzı güzel tut lisânın pâk olsun
+Sözün her yerde ‘azîz ü çâlâk olsun!
+4. Hak'tan iste kim küşâde ede dergâh
+‘İlm ü hikmetle dil olsun âgâh!
+5. Tama‘ı koy edüp dehre aldanma
+Dünyânın rengine zinhâr kuşanma!`,
+    contentModern: `1. Bir insana hakiki şeref bahşeden şey ancak ilimdir; ilimden nasibi olmayan bir kimse aslan gibi kuvvetli olsa bile kıymetsizdir!
+2. Her kimde ilim ve irfan varsa o kimse itibar sahibidir; ilmi olmayan insan meyvesiz kuru bir ağaç gibidir.
+3. Kelimeleri doğru ve zarif kullan, lisanın temiz olsun; böylece söylediğin söz her mecliste hürmete layık ve tesirli olsun.
+4. Yüce Hak'tan niyaz et ki sana hikmet kapılarını açsın; gönlün ilim ve hakikat nûruyla aydınlanıp uyanık olsun!
+5. Açgözlülüğü bırak, şu fani dünyaya aldanma; dünyanın sahte renklerine ve yaldızlarına sakın ola kapılma!`,
+    vocabularyJson: JSON.stringify([
+      { word: "Şecer (شجر)", meaning: "Ağaç", root: "Ş-C-R" },
+      { word: "Çâlâk (چالاک)", meaning: "Çevik, akıcı, tesirli", root: "Farsça" },
+      { word: "Küşâde (كشاده)", meaning: "Açılmış, ferahlamış", root: "Farsça küşûden" },
+      { word: "Âgâh (آگاه)", meaning: "Uyanık, haberdar, basiret sahibi", root: "Farsça" },
+      { word: "Zinhâr (زنهار)", meaning: "Sakın, asla, katiyen", root: "Farsça" },
+    ])
+  },
+
+  // 6. FUZÛLÎ — SU KASİDESİ (Mevcut)
   {
     slug: "su-kasidesi-fuzuli",
     title: "Su Kasidesi",
@@ -23,44 +304,33 @@ const libraryTexts = [
     readTime: "7 dk",
     difficulty: "Orta",
     isFeatured: true,
+    poeticMeter: "Fâilâtün Fâilâtün Fâilâtün Fâilün (Remel Bahri)",
     summary:
       "Divan şiirinin zirve şairi Fuzûlî'nin Hz. Peygamber (s.a.v.) methinde yazdığı, her beyti 'su' redifiyle hitam bulan 32 beyitlik şaheser kasidesi.",
-    contentOttoman: `١. ساچمه اى كوز كشكشمدن اشك كوكلمدهكى اودلره
-صو صپيلر حددن آشان اودلره قلمز چاره صو
-
+    contentOttoman: `١. ساچمه اى كوز اشكدن كوكلمدهكى اودلره صو
+كيم بو دنلو طوتوشن اودلره قيلمز چاره صو
 ٢. آبكوندر كنبذ دوار رنكى بلمزم
 يا محيط اولمش كوزمدم كنبده دواره صو
-
 ٣. ذوق تيغندن عجب يوق اولسه كونلوم چاك چاك
-كيم مرور ايلن بورور يارنجه صخر خاره صo
-
+كيم مرور ايلن بورور يارنجه صخر خاره صو
 ٤. قيل تمنا صودن اى كلشن كى خار خشكيدر
 بلكه بر كول آچه لطفن شربت ديداره صو
-
 ٥. خاك پايندن مگر كيم آب رحمت قيلدى بحث
 باشنه اوردى صبا هر دم صودن طاشلره صو`,
     contentTranslit: `1. Saçma ey göz eşkden gönlümdeki odlara su
 Kim bu denli tutuşan odlara kılmaz çâre su
-
 2. Âbgûndur günbed-i devvâr rengi bilmezem
 Yâ muhît olmuş gözümden günbed-i devvâra su
-
 3. Zevk-ı tîğünden aceb yok olsa gönlüm çâk çâk
 Kim mürûr ile vurur yârenlik içün hârâya su
-
 4. Kıl temennâ sudan ey gül-hasret kim eylesün
 Pâk lutfından yetüşsün teşne-dil ruhsâra su
-
 5. Hâk-i pâyine yetem dir ömrlerdir muttasıl
 Başını taştan taşa urup gezer âvâre su`,
     contentModern: `1. Ey gözüm! Gönlümdeki aşk ve hasret ateşlerine gözyaşından su serpme; çünkü bu derece alev alev tutuşmuş ateşleri söndürmeye su kâr etmez!
-
 2. Şu dönen gök kubbenin rengi su renginde (mavi) midir, yoksa gözümden dökülen yaşlar mı bütün semayı ve feleği çepeçevre kuşatmıştır, bilemiyorum.
-
 3. Sevgilinin gamze kılıcının zevkiyle bağrım parça parça olsa buna şaşılmaz; çünkü su da zamanla akıp geçtikçe mermer gibi en sert kayaları dahi aşındırıp yarar.
-
 4. Ey suya hasret güller gibi olan gönül! O kerem menbaından su dile ki, o lütuf şerbetiyle kavrulmuş dudaklara ve susuz yanağa taze bir hayat gelsin.
-
 5. Su, 'onun ayağının bastığı toprağa varayım' ümidiyle asırlardır hiç durmaksızın başını taştan taşa vurarak vadiler boyu divane gibi akıp gider.`,
     vocabularyJson: JSON.stringify([
       { word: "Eşk (اشك)", meaning: "Gözyaşı", root: "Farsça" },
@@ -72,282 +342,194 @@ Başını taştan taşa urup gezer âvâre su`,
       { word: "Âvâre (آواره)", meaning: "Başıboş, hasretle dolaşan", root: "Farsça" },
     ]),
   },
-  {
-    slug: "mecelle-kulli-kaideler",
-    title: "Mecelle-i Ahkâm-ı Adliyye (Küllî Kaideler)",
-    titleOttoman: "مجلهء احكام عدليه (قواعد كليه)",
-    author: "Ahmed Cevdet Paşa (Mecelle Cemiyeti Reisi)",
-    authorOttoman: "احمد جودت پاشا",
-    genre: "Hukuk & Mecelle",
-    period: "19. Yüzyıl (Tanzimat Devri)",
-    century: "19. yy",
-    readTime: "8 dk",
-    difficulty: "İleri",
-    isFeatured: true,
-    summary:
-      "Osmanlı hukuk felsefesinin ve İslam medeni hukukunun şaheseri olan Mecelle'nin ilk 100 maddesini teşkil eden, adaletin temel umdelerini belirleyen külli fıkıh kaideleri.",
-    contentOttoman: `ماده ٢: بر ايشده تصدق مقاصده كوره در، يعنى بر كيمسه‌نك فعلى نيتنه كوره حكم اولنور.
 
-ماده ٤: يقين شك ايله زايل اولماز. بر شيك ثبوتنده يقين اولندقده صكره عارض اولان شك ايله اول يقين باطل اولماز.
-
-ماده ٨: برائت ذمت اصلدر. بنابرين بر كيمسه برينه بر وجهله بورجلى ادعا ايدرسه اثبات ايده مدكجه ادعاسى مسموع اولماز.
-
-ماده ١٧: مشقت تيسيرى جلب ايدر. يعنى ضيق و صعوبت كورلدكده انشراح و سهولت احكامى تأنس ايدر.
-
-ماده ٢٠: ضرر ازاله اولنور.
-
-ماده ٣٩: ازمانك تغيری ايله احكامك تغيری انكار اولنماز. يعنى عرف و عادته مبنى اولان احكام وقت و زمانك دكمه‌سيله تبدل ايدر.`,
-    contentTranslit: `Madde 2: Bir işten maksat ne ise hüküm ona göredir (El-umûru bi-makāsıdihâ).
-
-Madde 4: Şek ile yakîn zâil olmaz.
-
-Madde 8: Berâet-i zimmet asıldır.
-
-Madde 17: Meşakkat teysîri celbeder.
-
-Madde 20: Zarar izâle olunur.
-
-Madde 39: Ezmânın teğayyürü ile ahkâmın teğayyürü inkâr olunamaz.`,
-    contentModern: `Madde 2: Bir amel veya hukuki muamelede hüküm, zahiri lafza değil, tarafların kastettiği niyet ve gayeye göredir.
-
-Madde 4: Kesin olarak bilinen bir hakikat (yakîn), sonradan ortaya çıkan zayıf bir şüphe ile ortadan kalkmaz (Yokluğu ispatlanmadıkça varlığı kabul edilir).
-
-Madde 8: Herkes borçsuz ve suçsuz doğar; asıl olan zimmetin temizliğidir. Dolayısıyla bir kimseden hak talep eden, iddiasını şer'an ispat etmekle mükelleftir.
-
-Madde 17: Zorluk ve meşakkat halleri, kanunda ruhsat ve kolaylık kapılarının açılmasını temin eder.
-
-Madde 20: Hukukun gayesi zararı gidermektir; kimsenin haksız bir zarara uğramasına müsaade olunamaz.
-
-Madde 39: Zamanın ve şartların değişmesiyle, örf ve âdete dayanan hükümlerin değişmesi inkâr olunamaz (Hukukun yaşayan hayata uyum kaidesi).`,
-    vocabularyJson: JSON.stringify([
-      { word: "Berâet-i Zimmet (برائت ذمت)", meaning: "Kişinin borçsuz ve masum olması asıldır kaidesi", root: "B-R-A ve Z-M-M" },
-      { word: "Yakîn (يقين)", meaning: "Şüpheden uzak kesin bilgi", root: "Y-Q-N" },
-      { word: "Teysîr (تيسير)", meaning: "Kolaylaştırma, zorluğu giderme", root: "Y-S-R (Yüsr)" },
-      { word: "İzâle (ازاله)", meaning: "Ortadan kaldırma, giderme", root: "Z-V-L (Zeval)" },
-      { word: "Teğayyür (تغير)", meaning: "Zamanla başkalaşma, değişme", root: "G-Y-R (Gayr)" },
-    ]),
-  },
+  // 7. EVLİYA ÇELEBİ — SEYAHATNÂME
   {
     slug: "evliya-celebi-istanbul-tasviri",
     title: "Seyahatnâme — İstanbul'un Vasfı",
-    titleOttoman: "سياحتنامه (اوصاف بى همتاى اسلامبول)",
-    author: "Evliya Çelebi",
+    titleOttoman: "سياحتنامهء اوليا چلبى (اوصاف قسطنطينيه)",
+    author: "Evliyâ Çelebi (Derviş Mehmed Zıllî)",
     authorOttoman: "اوليا چلبى",
     genre: "Seyahatnâme & Tarih",
-    period: "17. Yüzyıl",
+    period: "17. Yüzyıl (Klasik Çağ)",
     century: "17. yy",
-    readTime: "6 dk",
+    readTime: "8 dk",
     difficulty: "Orta",
-    isFeatured: true,
+    isFeatured: false,
+    poeticMeter: "Mensur Seyahat Üslubu",
     summary:
-      "17. yüzyılın en büyük cihan seyyahı Evliya Çelebi'nin lisanından payitaht İstanbul'un, Boğaziçi'nin, ulema meclislerinin ve suriçi çarşılarının eşsiz canlı tasviri.",
-    contentOttoman: `اوصاف بلدهء طيبه و جنة ارضيهء اسلامبول:
-حق تعالى بو شهر جنت-پيكرى ربع مسكونك خلاصهء بى‌نظيرى و بحرين و برينك ملتقاسى قيلوب جمله عالمك اعيان و اشرافنى انده جمع ايلمشدر.
-
-كونلردن بر كون آياصوفيه جامع شريفنده اخلاص ايله عبادتده ايكن بر لطيف يوخو عارض اولوب عالم رؤياده آخى چلبى جامعينه واردم. آندا مقدسه روحانيت ايله دولمش بر بزم-ى شريف كورديم. حضرت رسالت‌پناه صلى الله عليه وسلم كوزل يوزيله منوره ايدى. هيبتندن لسانم دولاشوب: "شفاعت يا رسول الله" دييه جك يرده "سياحت يا رسول الله!" ديدم. فخر كائنات تبسم بيورب: "شفاعت و سياحت و زيارت سنه ارزانی اولسون" ديو دعا بيورديلر.`,
-    contentTranslit: `Evsâf-ı Belde-i Tayyibe ve Cennet-i Arziyye-i İslâmbol:
-Hakk te'âlâ bu şehr-i cennet-peykeri rub'-ı meskûnun hulâsa-i bî-nazîri ve bahreyn ü berreynin mültekāsı kılıp cümle âlemin a'yân ve eşrâfını anda cem' eylemişdir.
-
-Günlerden bir gün Ayasofya Câmi'-i şerîfinde ihlâs ile ibâdette iken bir latîf uyku ârız olup âlem-i rüyâda Ahî Çelebi Câmi'ine vardım. Anda mukaddes rûhâniyyet ile dolmuş bir bezm-i şerîf gördüm. Hazret-i Risâlet-penâh sallallâhu aleyhi ve sellem güzel yüzüyle münevvere idi. Heybetinden lisânım dolaşıp: "Şefâat yâ Resûlallâh" diyecek yerde "Seyâhat yâ Resûlallâh!" dedim. Fahr-i Kâinât tebessüm buyurup: "Şefâat ve seyâhat ve ziyâret sana erzânî olsun" deyu duâ buyurdular.`,
-    contentModern: `Güzel belde ve yeryüzünün cenneti olan İstanbul'un vasıfları:
-Cenâb-ı Hak bu cennet misali şehri, insanların yaşadığı dünya coğrafyasının eşsiz bir özeti ve iki deniz (Karadeniz ve Akdeniz) ile iki kıtanın kavuşma noktası kılmış; bütün dünyanın seçkin insanlarını burada bir araya getirmiştir.
-
-Günlerden bir gün Ayasofya Camii'nde ihlas ile ibadet ederken tatlı bir uyku hali geldi ve rüya âleminde kendimi Eminönü'ndeki Ahi Çelebi Camii'nde buldum. Orada mukaddes bir manevi nurla dolup taşmış mübarek bir meclis gördüm. Âlemlere rahmet Peygamber Efendimiz cemaliyle orayı nurlandırmıştı. O azamet ve heybet karşısında dilim dolaşıp heyecandan 'Şefaat yâ Resûlallah' diyeceğime, 'Seyahat yâ Resûlallah!' deyiverdim. Efendimiz tebessüm buyurarak: 'Şefaat de, seyahat de, ziyaret de sana nasip ve mübarek olsun' diye dua buyurdular.`,
+      "Dünya seyyahı Evliya Çelebi'nin 17. yüzyıl payitahtı İstanbul'u, Ayasofya'yı, Boğaziçi yalılarını ve esnaf alaylarını kendine has canlı ve nükteli üslubuyla anlattığı seyahatnâme cildi.",
+    contentOttoman: `بو شهر عظيم استانبول در كيم بهشت روى زميندر.
+دور قلاعى ايله محاط اولوب طقوز يوز يكر مى بش پاره قله لرى واردر.
+هواسى لطيف و آب حيات كبى صولرى جاريدر.
+جمله دن اعلا آياصوفياى كبير در كيم گنبد بلندى فلك اطلسه سر چكمشدر.
+اندروننده اولان رخام مرمرلر و قناديل زرين كوزلرى خيره ايلر.
+اهاليسى غايت فصيح و بليغ تركى تكلم ايدوب هر صنفنده بر كماليت پديداردر.`,
+    contentTranslit: `Bu şehr-i ‘azīm İslâmbol’dur kim behişt-i rûy-ı zemîndir.
+Devr-i kılâ‘ı ile muhât olup dokuz yüz yigirmi beş pâre kuleleri vardır.
+Hevâsı latîf ve âb-ı hayât gibi suları cârîdir.
+Cümleden a‘lâ Ayasofya-yı Kebîr’dir kim günbed-i bülendi felek-i atlase ser çekmişdir.
+Enderûnunda olan ruhâm mermerler ve kanâdîl-i zerrîn gözleri hîre eyler.
+Ahâlîsi gâyet fasîh ü belîğ Türkî tekellüm edüp her sınıfında bir kemâliyyet pedîdârdır.`,
+    contentModern: `Bu muazzam şehir İstanbul'dur ki yeryüzünün cennetidir.
+Çepeçevre surlarla kuşatılmış olup surlarında dokuz yüz yirmi beş adet kulesi vardır.
+Havası pek tatlı ve suları âb-ı hayat gibi şifalı ve gürül gürül akmaktadır.
+Şehirdeki bütün mabetlerin en yücesi Büyük Ayasofya'dır ki onun yüksek kubbesi atlas göklerine baş uzatmıştır.
+İçinde bulunan damarlı renkli mermerler ve altın yaldızlı kandiller gören gözleri hayran bırakır.
+Ahalisi son derece düzgün ve fasih bir Türkçe konuşup cemiyetin her zümresinde ayrı bir olgunluk ve zarafet aşikârdır.`,
     vocabularyJson: JSON.stringify([
-      { word: "Evsâf (اوصاف)", meaning: "Vasıflar, üstün nitelikler", root: "V-S-F (Vasıf)" },
-      { word: "Belde-i Tayyibe (بلدهء طيبه)", meaning: "Tertemiz, huzurlu ve mamur şehir (İstanbul)", root: "B-L-D ve T-Y-B" },
-      { word: "Mültekā (ملتقى)", meaning: "İki denizin veya yolun birleştiği kavşak", root: "L-Q-Y (Lika)" },
-      { word: "Erzânî (ارزانى)", meaning: "Layık, bağışlanmış, nasip edilmiş", root: "Farsça" },
-      { word: "Bezm-i Şerîf (بزم شريف)", meaning: "Mübarek manevi meclis", root: "Farsça bezm + Arapça şerîf" },
+      { word: "Behişt (بهشت)", meaning: "Cennet", root: "Farsça" },
+      { word: "Rûy-ı Zemîn (روی زمين)", meaning: "Yeryüzü, dünya yüzü", root: "Farsça" },
+      { word: "Muhât (محاط)", meaning: "Kuşatılmış, çevrelenmiş", root: "H-V-T" },
+      { word: "Ruhâm (رخام)", meaning: "Beyaz mermer, damarlı taş", root: "R-H-M" },
+      { word: "Kanâdîl-i Zerrîn (قناديل زرين)", meaning: "Altın kandiller", root: "Arapça kandil + Farsça zerrin" },
+      { word: "Hîre (خيره)", meaning: "Gözü kamaşmış, şaşkın hayran", root: "Farsça" },
+      { word: "Pedîdâr (پديدار)", meaning: "Aşikâr, apaçık görünen", root: "Farsça" },
     ]),
   },
+
+  // 8. NAMIK KEMAL — HÜRRİYET KASİDESİ
   {
     slug: "hurriyet-kasidesi-namik-kemal",
     title: "Hürriyet Kasidesi",
-    titleOttoman: "قصيدهء حريت",
-    author: "Namık Kemal (Vatan Şairi)",
+    titleOttoman: "قصيدهء حريت (نامق كمال)",
+    author: "Namık Kemal",
     authorOttoman: "نامق كمال",
     genre: "Divan & Tanzimat Edebiyatı",
     period: "19. Yüzyıl (Tanzimat)",
     century: "19. yy",
-    readTime: "5 dk",
-    difficulty: "Orta",
-    isFeatured: true,
-    summary:
-      "Tanzimat devri fikir hürriyetinin ve vatan müdafaasının bayrak şiiri; klasik kaside formunu yepyeni bir hürriyet ve adalet mefhumuyla yoğuran abidevi eser.",
-    contentOttoman: `١. كوروب احكام عصرى منحرف صدق و سلامتندن
-چكيلدك عزت و اقبال ايله باب حكومتندن
-
-٢. حكيما نه اسه مقصد اولور الزم بيزه خدمت
-محقر كوره مز عاقل هر بر وضع مروتندن
-
-٣. نه فسونكار ايمشسن اى ديدار حريت
-اسيرك اولدق قورتولدق بند اسارتندن
-
-٤. اولور بزم ايچون جان و دلده وطن ايمانى
-شهيد اولانك قانى صولماز خاك تربتندن`,
-    contentTranslit: `1. Görüp ahkâm-ı asrı münharif sıdk u selâmetten
-Çekildik izzet ü ikbâl ile bâb-ı hükûmetten
-
-2. Usanmaz kendini insan bilenler halka hizmetten
-Mürüvvet-mend olan mazlûma el çekmez i'ânetten
-
-3. Ne efsunkâr imişsin âh ey dîdâr-ı hürriyyet
-Esîr-i aşkın olduk gerçi kurtulduk esâretten
-
-4. Ne gam pür-âteş-i hevl olsa da gavga-yı hürriyyet
-Kaçar mı merd olan bir cân içün meydân-ı gayretten`,
-    contentModern: `1. Devrin idare ve kanunlarının doğruluktan ve adaletten saptığını görünce; şerefimiz ve haysiyetimizle devlet kapısındaki mevki ve ikbali terk ettik.
-
-2. Kendini gerçekten insan bilenler halka ve cemiyete hizmetten asla usanmazlar; asalet ve fazilet sahibi kimseler mazluma yardım elini uzatmaktan vazgeçmez.
-
-3. Ey hürriyetin güzel çehresi! Meğer ne büyüleyici bir caziben varmış ki, senin aşkının esiri olduk ama bu sayede asıl kölelik ve cehalet zincirlerinden kurtulduk!
-
-4. Hürriyet mücadelesi korkunç ateşlerle dolu olsa da ne gam! Yiğit olan kimse üç günlük bir can korkusuyla gayret ve fedakârlık meydanından kaçar mı?`,
-    vocabularyJson: JSON.stringify([
-      { word: "Münharif (منحرف)", meaning: "Yoldan sapmış, eğrilmiş", root: "H-R-F (İnhiraf)" },
-      { word: "İkbal (اقبال)", meaning: "Talih, makam yüksekliği, yönelme", root: "Q-B-L (Kabul)" },
-      { word: "Mürüvvet-mend (مروت مند)", meaning: "İnsanlık şerefine ve mertliğe sahip kimse", root: "Arapça mürüvvet + Farsça -mend" },
-      { word: "Dîdâr (ديدار)", meaning: "Yüz, çehre, güzel cemal", root: "Farsça dîden" },
-      { word: "İ'ânet (اعانت)", meaning: "Yardım etme, elinden tutma", root: "A-V-N (Avn)" },
-    ]),
-  },
-  {
-    slug: "kanuni-mersiyesi-baki",
-    title: "Kanûnî Sultan Süleyman Mersiyesi",
-    titleOttoman: "مرثيهء حضرت سلطان سليمان خان (باقى)",
-    author: "Bâkî (Sultânü'ş-Şu'arâ)",
-    authorOttoman: "محمود باقی",
-    genre: "Divan Şiiri",
-    period: "16. Yüzyıl (Klasik Çağ)",
-    century: "16. yy",
-    readTime: "7 dk",
-    difficulty: "İleri",
-    isFeatured: true,
-    summary:
-      "Muhteşem Süleyman'ın Zigetvar seferinde vefatı üzerine Bâkî'nin kaleme aldığı, cihan saltanatının faniliğini ve bir cihan padişahının ardından duyulan matemin vakarını anlatan terkib-i bend şaheseri.",
-    contentOttoman: `١. اى پاى‌بند دام كه قيد نام و ننك
-تا كى هواى مشغلهء دهر بى‌درنك
-
-٢. باق بو چمن اوزره صون باهارى درك ايلش
-بر بر دكولر ياپراغ شاخ زرد رنك
-
-٣. سلطان سليمان خان كيم حكيم جهان ايدى
-فرمان ايدردى مغربدن مشرق قدر جنك
-
-٤. تير اجل توكندردى ياي سعادتنى
-خاك اولدى آخر او تن پُر شوكت و فرنك`,
-    contentTranslit: `1. Ey pây-bend-i dâm-geh-i kayd-ı nâm ü neng
-Tâ key hevâ-yı meşgale-i dehr-i bî-direng
-
-2. An ol güni ki âhir olup nev-bahâr-ı ömr
-Berg-i hazâna dönse gerek rûy-ı lâle-reng
-
-3. Âhir bozuldu meclis-i ayşın safâ-yı cem'
-Döndü fenâ şarâbına câm-ı zülâl-ı reng
-
-4. Sultan Süleyman k'oldu Süleymân-ı asr idi
-Hükm-i kazâya boyun eğdi ol bî-dirîğ ü teng`,
-    contentModern: `1. Ey şan, şöhret ve dedikodu tuzağına ayağı dolanmış gafil insan! Bu hiç durmadan akıp giden geçici dünyanın boş meşgalesiyle daha ne vakte kadar oyalanacaksın?
-
-2. O günü hatırla ki; ömrün taze ilkbaharı nihayete erip son bulur da, o lale gibi parlak ve al yanaklar sonbahar yaprağı gibi sararıp solar.
-
-3. Sonunda dünya zevklerinin meclisi ve o neşeli kalabalık dağıldı; eldeki o tatlı ve berrak hayat kadehi ecelin acı fena şerbetine dönüştü.
-
-4. Asrın Hz. Süleyman'ı sayılan koca Cihan Padişahı Sultan Süleyman bile, Hak teâlânın ezelî kader ve ecel hükmü karşısında boyun büktü.`,
-    vocabularyJson: JSON.stringify([
-      { word: "Pây-bend (پای بند)", meaning: "Ayağı bağlı, zincirlenmiş", root: "Farsça pây + bend" },
-      { word: "Bî-direng (بی درنك)", meaning: "Durmaksızın, süratle geçen", root: "Farsça" },
-      { word: "Berg-i Hazân (برگ خزان)", meaning: "Sonbahar yaprağı, sararıp düşen yaprak", root: "Farsça berg + hazân" },
-      { word: "Hükm-i Kazâ (حكم قضا)", meaning: "İlahi takdir, kaçınılmaz kader hükmü", root: "H-K-M ve Q-D-Y" },
-    ]),
-  },
-  {
-    slug: "tanzimat-fermani-gulhane-hatti",
-    title: "Gülhane Hatt-ı Hümâyûnu (Tanzimat Fermanı)",
-    titleOttoman: "خط همايون كلخانه (تنظيمات خيريه فرمانى)",
-    author: "Sultan Abdülmecid Han & Mustafa Reşid Paşa",
-    authorOttoman: "سلطان عبدالمجيد خان",
-    genre: "Ferman & Belge",
-    period: "19. Yüzyıl (1839)",
-    century: "19. yy",
     readTime: "6 dk",
     difficulty: "Orta",
     isFeatured: false,
+    poeticMeter: "Mef'ûlü Mefâîlü Mefâîlü Feûlün (Hezec Bahri)",
     summary:
-      "Modern Osmanlı kamu hukukunun ve tebaanın can, mal, ırz ve namus emniyetini kanun teminatı altına alan tarihi Gülhane Fermanı'nın orijinal metni.",
-    contentOttoman: `جمله‌يه معلوم اولدوغى اوزره دولت عليه‌مزك بدايت ظهورندن برو احكام جليلهء قرآنيّه و قوانين شرعيّه‌يه كمال مرتبه رعايت اولندوغندن صالطهء سنيه‌مزك قوت و رفعتى و تابعه‌سنك رفاه و حالتى رتبهء غايته يتيشمش ايكن يوز اللى سنه واردر كى غائله‌لر و اسباب متنوعه‌يه مبنى نه شرع شريفه و نه قوانين منيفه‌يه انقياد اولنمديغندن اقتدار اولكى تبدل ايدوب ضعف و عجزه‌يه مبدل اولمشدر.
-
-بنابرين بالطف و العناية الإلهية بر قانون جديد وضع ايله جمله تبعه‌نك اموال و ارواح و اعراضى محفوض اولارق بر اساس متين اوزرنده عدالت برقرار اولنه حقدر.`,
-    contentTranslit: `Cümleye ma'lûm olduğu üzere devlet-i aliyyemizin bidâyet-i zuhûrundan berü ahkâm-ı celîle-i Kur'âniyye ve kavânîn-i şer'iyyeye kemâl-i mertebe riâyet olunduğundan saltanat-ı seniyyemizin kuvvet ve mefhareti ve tebaasının refâh ve râhatı rütbe-i gāyete erişmiş iken...
-
-Binâenaleyh bi-lutfi'llâhi te'âlâ ber-vech-i âtî kavânîn-i mukteziyyenin vaz'ı lâzımeden görünmüşdür: Evvelâ tebaa-i saltanat-ı seniyyemizden olanların emniyyet-i cân ve mahfûziyyet-i ırz u nâmûs ve emvâli...`,
-    contentModern: `Herkesin bildiği üzere yüce devletimizin kuruluşundan itibaren Kur'an ahkâmına ve adalet kanunlarına tam riayet edildiği için devletimiz azamet ve kudrete, halkımız da refah ve huzura kavuşmuştu. Fakat son yüz elli yıldır muhtelif gaileler ve ihmaller sebebiyle kanunlara riayet edilmediğinden eski kuvvet zayıflığa dönüşmüştür.
-
-Bu sebeple Cenâb-ı Hakk'ın lütfuyla, tebaamızın can güvenliği, namus ve haysiyetinin korunması ve mal mülkiyetinin teminatı üzerine kurulu yeni ve âdil bir kanun nizamı tesis olunmuştur.`,
+      "Vatan ve hürriyet şairi Namık Kemal'in, klasik kaside formunu modern hürriyet, adalet ve vatan mefhumlarıyla dönüştürdüğü ünlü hürriyet manifestosu.",
+    contentOttoman: `١. كورب احكام عصرى منحرف صدق و سلامتيدن
+قبول اتدك تملقى مروت ديانتيدن
+٢. نه ممكن ظلم ايله بيداد ايله امحاى حقايق
+سقيب انديشه یى سد ايله‌مك افكار خلقيدن
+٣. نه ايكن بو قدر اسباب حريت جهانده
+قالمش انسانلر اسير قيد غفلتيدن
+٤. اولور بزمچون سعادت گر يوق اولسق يار يولنده
+فدا اولسون حيات و جان بو ملت رايتيدن`,
+    contentTranslit: `1. Görüp ahkâm-ı asrı münharif sıdk u selâmetten
+Kabûl ettik tegallübü mürüvvet diyânetten!
+2. Ne mümkün zulm ile bî-dâd ile imhâ-yı hakāyık
+Sıkıp endîşeyi sedd eylemek efkâr-ı halkıyetten!
+3. Ne iken bu kadar esbâb-ı hürriyyet cihânda
+Kalmış insânlar esîr-i kayd-ı gafletten!
+4. Olur bizimçün sa‘âdet ger yok olsak yâr yolunda
+Fedâ olsun hayât u cân bu millet râyetinden!`,
+    contentModern: `1. Çağın hükümlerini doğruluktan ve esenlikten sapmış görünce, iktidar hevesi yerine insanlık ve vicdan yolunu seçtik!
+2. Zulüm ile, haksızlıkla hakikatleri yok etmek ne mümkündür? Düşünceyi boğarak halkın fikir üretmesine set çekmek imkânsızdır!
+3. Dünyada hürriyetin bunca vasıtası ve imkânı varken, ne yazık ki insanlar hâlâ gaflet bağlarının esiri olarak kalmışlardır.
+4. Bizim için en büyük saadet vatan sevgilisi yolunda yok olmaktır; canımız ve hayatımız bu yüce milletin sancağına feda olsun!`,
     vocabularyJson: JSON.stringify([
-      { word: "Bidâyet (بدايت)", meaning: "Başlangıç, ilk kuruluş çağı", root: "B-D-A (Bidayet)" },
-      { word: "Tebaa (تبعه)", meaning: "Vatandaşlar, devlet himayesinde yaşayan halk", root: "T-B-A (Tâbi)" },
-      { word: "Kavânîn (قوانين)", meaning: "Kanunlar, nizamnameler", root: "Q-N-N (Kanun)" },
-      { word: "Mahfûziyyet (محفوظيت)", meaning: "Korunmuşluk, güvence altında olma", root: "H-F-Z (Hıfz)" },
+      { word: "Münharif (منحرف)", meaning: "Doğru yoldan sapmış", root: "H-R-F" },
+      { word: "Bî-dâd (بيداد)", meaning: "Adaletsizlik, zulüm", root: "Farsça" },
+      { word: "İmhâ (امحا)", meaning: "Yok etmek, silmek", root: "M-H-V" },
+      { word: "Râyet (رايت)", meaning: "Sancak, bayrak", root: "R-Y-T" },
+    ]),
+  },
+
+  // 9. TANZİMAT FERMANI (GÜLHANE HATT-I HÜMAYUNU)
+  {
+    slug: "tanzimat-fermani-gulhane-hatti",
+    title: "Gülhane Hatt-ı Hümâyûnu (Tanzimat Fermanı)",
+    titleOttoman: "كلخانه خط همايونی (تنظيمات خيريه فرمانی)",
+    author: "Sultan Abdülmecid / Koca Mustafa Reşid Paşa",
+    authorOttoman: "سلطان عبد المجيد خان / مصطفى رشيد پاشا",
+    genre: "Ferman & Belge",
+    period: "19. Yüzyıl (1839)",
+    century: "19. yy",
+    readTime: "8 dk",
+    difficulty: "İleri",
+    isFeatured: false,
+    poeticMeter: "Resmi İnşâ ve Teşrifat Dili (Hatt-ı Hümayun)",
+    summary:
+      "3 Kasım 1839'da Gülhane Parkı'nda okunan, tebaanın can, mal, ırz güvenliğini ve kanun önünde eşitliğini teminat altına alan Osmanlı modernleşmesinin kurucu belgesi.",
+    contentOttoman: `جمله يه معلوم اولدوغى اوزره دولتمزك بدايت ظهورندن برى احكام قرآنيه و قوانين شرعيه يه كمال مرتبه ده رعايت اولندغندن،
+ملك و ملتمزك هر جهتله معموريت و رفاهى متزايد اولمش ايدى.
+لكن يوز اللي سنه واردر كيم غائله لر و اسباب متعدده ايله شرع شريفه انقياد كافى مرتبه ده اولنمدغندن قوت و ثروتمز زواله طوغرى كتمشدر.
+ايمدى، جناب حقك اعانه سيله ملتمزه حيات تازه بخش ايتمك ايچون بر طاقم قوانين جديده تنظيم اولنمق لازم كرمشدر.
+بو قوانينك اساسی ايسه: جان، مال، عرض و ناموسك مصونيتي؛ ويركولرك عادلانه تعيينى و محاكمه نك علني اولمسيدر.`,
+    contentTranslit: `Cümleye ma‘lûm olduğu üzere devletimizin bidâyet-i zuhûrundan beri ahkâm-ı Kur’âniyye ve kavânîn-i şer‘iyyeye kemâl-i mertebede ri‘âyet olunduğundan,
+mülk ü milletimizin her cihetle ma‘mûriyyet ü refâhı mütezâyid olmuş idi.
+Lâkin yüz elli sene vardır kim gāileler ve esbâb-ı müte‘addide ile şer‘-i şerîfe inkıyâd kâfî mertebede olunmadığından kuvvet ü servetimiz zevâle doğru gitmişdir.
+İmdi, Cenâb-ı Hakk’ın i‘ânesiyle milletimize hayât-ı tâze bahşitmek içün bir takım kavânîn-i cedîde tanzîm olunmak lâzım gelmişdir.
+Bu kavânînin esâsı ise: Cân, mâl, ‘ırz u nâmûsun masûniyyeti; vergilerin ‘âdilâne ta‘yîni ve muhâkemenin ‘alenî olmasıdır.`,
+    contentModern: `Herkesin malumu olduğu üzere devletimizin kuruluşundan beri Kur'an hükümlerine ve şeriat kanunlarına tam riayet edildiğinden,
+ülkemiz ve milletimiz her bakımdan mamur olup refahı günden güne artmıştı.
+Fakat son yüz elli yıldır çeşitli gaileler ve sebeplerle kanunlara bağlılık gevşediğinden devletimizin kuvvet ve zenginliği gerilemeye başlamıştır.
+Şimdi, Cenab-ı Hakk'ın yardımıyla milletimize taze bir hayat bahşetmek için yeni kanunların tanzim edilmesi zaruri olmuştur.
+Bu yeni kanunların temeli ise şunlardır: Bütün tebaanın can, mal, ırz ve namus dokunulmazlığının sağlanması; vergilerin adalete uygun belirlenmesi ve mahkemelerin herkese açık (aleni) yapılmasıdır.`,
+    vocabularyJson: JSON.stringify([
+      { word: "Bidâyet (بدايت)", meaning: "Başlangıç, ilk ortaya çıkış", root: "B-D-A" },
+      { word: "Mütezâyid (متزايد)", meaning: "Günden güne artan, çoğalan", root: "Z-Y-D" },
+      { word: "İnkıyâd (انقياد)", meaning: "Boyun eğmek, kanuna uymak", root: "Q-V-D" },
+      { word: "Masûniyyet (مصونيت)", meaning: "Dokunulmazlık, himaye altında olma", root: "S-V-N" },
     ]),
   },
 ];
 
 async function seedLibrary() {
-  console.log("📚 LÜGAT Dijital Kütüphane Klasik Eserleri Yükleniyor...");
+  console.log("📚 LÜGAT Dijital Kütüphane Klasik Eserleri Güncelleniyor...");
 
-  let count = 0;
-  for (const text of libraryTexts) {
-    await prisma.libraryText.upsert({
-      where: { slug: text.slug },
+  for (const textData of libraryTexts) {
+    const text = await prisma.libraryText.upsert({
+      where: { slug: textData.slug },
       update: {
-        title: text.title,
-        titleOttoman: text.titleOttoman,
-        author: text.author,
-        authorOttoman: text.authorOttoman,
-        genre: text.genre,
-        period: text.period,
-        century: text.century,
-        summary: text.summary,
-        contentOttoman: text.contentOttoman,
-        contentTranslit: text.contentTranslit,
-        contentModern: text.contentModern,
-        vocabularyJson: text.vocabularyJson,
-        readTime: text.readTime,
-        difficulty: text.difficulty,
-        isFeatured: text.isFeatured,
+        title: textData.title,
+        titleOttoman: textData.titleOttoman,
+        author: textData.author,
+        authorOttoman: textData.authorOttoman,
+        genre: textData.genre,
+        period: textData.period,
+        century: textData.century,
+        readTime: textData.readTime,
+        difficulty: textData.difficulty,
+        isFeatured: textData.isFeatured,
+        summary: textData.summary,
+        contentOttoman: textData.contentOttoman,
+        contentTranslit: textData.contentTranslit,
+        contentModern: textData.contentModern,
+        vocabularyJson: textData.vocabularyJson,
+        poeticMeter: textData.poeticMeter || null,
+        manuscriptImageUrl: textData.manuscriptImageUrl || null,
+        annotationsJson: textData.annotationsJson || null,
       },
       create: {
-        slug: text.slug,
-        title: text.title,
-        titleOttoman: text.titleOttoman,
-        author: text.author,
-        authorOttoman: text.authorOttoman,
-        genre: text.genre,
-        period: text.period,
-        century: text.century,
-        summary: text.summary,
-        contentOttoman: text.contentOttoman,
-        contentTranslit: text.contentTranslit,
-        contentModern: text.contentModern,
-        vocabularyJson: text.vocabularyJson,
-        readTime: text.readTime,
-        difficulty: text.difficulty,
-        isFeatured: text.isFeatured,
+        slug: textData.slug,
+        title: textData.title,
+        titleOttoman: textData.titleOttoman,
+        author: textData.author,
+        authorOttoman: textData.authorOttoman,
+        genre: textData.genre,
+        period: textData.period,
+        century: textData.century,
+        readTime: textData.readTime,
+        difficulty: textData.difficulty,
+        isFeatured: textData.isFeatured,
+        summary: textData.summary,
+        contentOttoman: textData.contentOttoman,
+        contentTranslit: textData.contentTranslit,
+        contentModern: textData.contentModern,
+        vocabularyJson: textData.vocabularyJson,
+        poeticMeter: textData.poeticMeter || null,
+        manuscriptImageUrl: textData.manuscriptImageUrl || null,
+        annotationsJson: textData.annotationsJson || null,
       },
     });
 
-    count++;
+    console.log(`📌 Kütüphane eseri işlendi: ${text.title} (${text.author})`);
   }
 
-  console.log(`✅ ${count} adet şaheser klasik eser dijital kütüphaneye başarıyla işlendi!`);
+  console.log(`✅ ${libraryTexts.length} adet hakiki klasik şaheser dijital kütüphaneye başarıyla işlendi!`);
 }
 
-module.exports = { libraryTexts, seedLibrary };
-
-if (require.main === module) {
-  seedLibrary()
-    .catch(console.error)
-    .finally(() => prisma.$disconnect());
-}
+seedLibrary()
+  .catch((e) => {
+    console.error("❌ Hata:", e);
+    process.exit(1);
+  })
+  .finally(() => prisma.$disconnect());
