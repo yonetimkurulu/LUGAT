@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Sparkles, X, ArrowRight, CornerDownLeft } from "lucide-react";
+import { Search, Sparkles, X, ArrowRight, CornerDownLeft, BookOpen, GitFork } from "lucide-react";
 import { isArabicScript } from "@/lib/searchUtils";
 
 interface SearchBarProps {
@@ -22,6 +22,7 @@ export default function SearchBar({
   const [query, setQuery] = useState(initialQuery);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [rootSuggestions, setRootSuggestions] = useState<any[]>([]);
+  const [librarySuggestions, setLibrarySuggestions] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,6 +34,7 @@ export default function SearchBar({
     if (!query || query.trim().length < 2) {
       setSuggestions([]);
       setRootSuggestions([]);
+      setLibrarySuggestions([]);
       setIsOpen(false);
       return;
     }
@@ -45,6 +47,7 @@ export default function SearchBar({
           const data = await res.json();
           setSuggestions(data.words || []);
           setRootSuggestions(data.matchingRoots || []);
+          setLibrarySuggestions(data.matchingLibraryTexts || []);
           setIsOpen(true);
         }
       } catch (err) {
@@ -86,6 +89,11 @@ export default function SearchBar({
   const handleSelectRoot = (slug: string) => {
     setIsOpen(false);
     router.push(`/kokler/${slug}`);
+  };
+
+  const handleSelectLibrary = (slug: string) => {
+    setIsOpen(false);
+    router.push(`/kutuphane/${slug}`);
   };
 
   const isLarge = size === "lg";
@@ -162,7 +170,7 @@ export default function SearchBar({
       </form>
 
       {/* Autocomplete dropdown */}
-      {isOpen && (suggestions.length > 0 || rootSuggestions.length > 0) && (
+      {isOpen && (suggestions.length > 0 || rootSuggestions.length > 0 || librarySuggestions.length > 0) && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-[#E2D8C9] overflow-hidden z-50 divide-y divide-[#F2ECE1]">
           {/* Matching Roots Section */}
           {rootSuggestions.length > 0 && (
@@ -189,6 +197,40 @@ export default function SearchBar({
                     <span className="text-[11px] text-ink-500 max-w-[140px] truncate">
                       ({r.primaryMeaning})
                     </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Matching Library Texts Section */}
+          {librarySuggestions.length > 0 && (
+            <div className="p-2.5 bg-[#FAF7F0] border-b border-[#F0E8DC]">
+              <span className="text-[11px] font-semibold text-gold-900 uppercase tracking-wider block mb-1.5 px-1 flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-burgundy-700" />
+                <span>Kütüphanede Eşleşen Eserler</span>
+              </span>
+              <div className="space-y-1">
+                {librarySuggestions.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => handleSelectLibrary(item.slug)}
+                    className="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white transition-colors text-left group border border-transparent hover:border-[#E2D8C9]"
+                  >
+                    <div>
+                      <div className="font-serif font-bold text-xs sm:text-sm text-ink-900 group-hover:text-burgundy-700">
+                        {item.title}
+                      </div>
+                      <div className="text-[11px] text-ink-500">
+                        {item.author} • <span className="italic">{item.genre}</span>
+                      </div>
+                    </div>
+                    <div
+                      dir="rtl"
+                      className="font-arabic text-lg font-bold text-burgundy-800 pl-2 shrink-0 hidden sm:block"
+                    >
+                      {item.titleOttoman}
+                    </div>
                   </button>
                 ))}
               </div>

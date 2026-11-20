@@ -37,6 +37,7 @@ function SozlukContent() {
 
   const [words, setWords] = useState<any[]>([]);
   const [matchingRoots, setMatchingRoots] = useState<any[]>([]);
+  const [matchingLibraryTexts, setMatchingLibraryTexts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedWordIds, setExpandedWordIds] = useState<Record<string, boolean>>({});
   const [showArabicKeyboard, setShowArabicKeyboard] = useState(false);
@@ -66,6 +67,7 @@ function SozlukContent() {
         if (!active) return;
         setWords(data.words || []);
         setMatchingRoots(data.matchingRoots || []);
+        setMatchingLibraryTexts(data.matchingLibraryTexts || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -245,7 +247,7 @@ function SozlukContent() {
         <div className="p-4 rounded-xl bg-gradient-to-r from-burgundy-50 via-[#FAF4E8] to-[#FDFCF9] border border-gold-400/50 shadow-sm space-y-2">
           <div className="flex items-center gap-2 text-xs font-bold text-burgundy-900 uppercase tracking-wide">
             <GitFork className="w-4 h-4 text-burgundy-700" />
-            <span>Doğrudan Kök Ailesi Bulundu</span>
+            <span>Doğrudan Kök Ailesi Bulundu ({matchingRoots.length})</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
             {matchingRoots.map((r) => (
@@ -274,6 +276,66 @@ function SozlukContent() {
         </div>
       )}
 
+      {/* Matching Library Texts Banner if any */}
+      {matchingLibraryTexts.length > 0 && (
+        <div className="p-5 rounded-xl bg-gradient-to-r from-[#FAF6F0] via-[#F6EFE6] to-[#FAF6F0] border border-gold-400/60 shadow-sm space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs font-bold text-burgundy-950 uppercase tracking-wide">
+              <BookOpen className="w-4 h-4 text-burgundy-700" />
+              <span>Kütüphanede İlgili Eser ve Metinler ({matchingLibraryTexts.length})</span>
+            </div>
+            <Link
+              href="/kutuphane"
+              className="text-xs font-semibold text-burgundy-700 hover:text-burgundy-900 flex items-center gap-1"
+            >
+              <span>Kütüphaneyi Keşfet</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+            {matchingLibraryTexts.map((text) => (
+              <Link
+                key={text.id}
+                href={`/kutuphane/${text.slug}`}
+                className="flex flex-col justify-between p-4 rounded-xl bg-white border border-[#DFD5C4] hover:border-burgundy-700 hover:shadow-md transition-all group relative overflow-hidden"
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="font-serif font-bold text-base text-ink-900 group-hover:text-burgundy-700 transition-colors">
+                        {text.title}
+                      </h4>
+                      <div className="text-xs text-ink-600 font-medium">
+                        {text.author} {text.period && `• ${text.period}`}
+                      </div>
+                    </div>
+                    <div
+                      dir="rtl"
+                      className="font-arabic text-2xl font-bold text-burgundy-800 shrink-0 select-none opacity-85"
+                    >
+                      {text.titleOttoman}
+                    </div>
+                  </div>
+                  {text.summary && (
+                    <p className="text-xs text-ink-600 line-clamp-2 leading-relaxed pt-1">
+                      {text.summary}
+                    </p>
+                  )}
+                </div>
+                <div className="mt-3 pt-2.5 border-t border-[#F2ECE1] flex items-center justify-between text-[11px]">
+                  <span className="font-semibold text-gold-900 bg-gold-100/70 px-2 py-0.5 rounded">
+                    {text.genre}
+                  </span>
+                  <span className="font-semibold text-burgundy-700 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                    Metni & Tıpkıbasımı Oku →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Results List */}
       {loading ? (
         <div className="py-20 text-center space-y-3">
@@ -283,26 +345,45 @@ function SozlukContent() {
           </p>
         </div>
       ) : words.length === 0 ? (
-        <div className="manuscript-panel p-12 text-center space-y-4 max-w-xl mx-auto">
-          <div className="w-14 h-14 rounded-full bg-burgundy-50 text-burgundy-700 flex items-center justify-center mx-auto text-2xl font-serif">
-            ؟
+        matchingRoots.length > 0 || matchingLibraryTexts.length > 0 ? (
+          <div className="manuscript-panel p-6 text-center space-y-2 max-w-xl mx-auto border-gold-400/40 bg-gold-50/20">
+            <h4 className="font-serif text-base font-bold text-ink-900">
+              "{query}" İçin Müstakil Kelime Maddesi Bulunmadı
+            </h4>
+            <p className="text-xs text-ink-600 leading-relaxed">
+              Aradığınız ifade doğrudan bir lügat maddesi olarak bulunmamakla birlikte, yukarıda listelenen kök şecereleri veya kütüphane eserleri aramanızla doğrudan ilişkilidir.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/admin"
+                className="text-xs font-semibold text-burgundy-700 hover:underline"
+              >
+                + Yönetim Panelinden Bu Kelimeyi Yeni Madde Olarak Ekle
+              </Link>
+            </div>
           </div>
-          <h3 className="font-serif text-xl font-bold text-ink-900">
-            Aradığınız Kriterlere Uygun Madde Bulunamadı
-          </h3>
-          <p className="text-xs text-ink-600 leading-relaxed">
-            "{query}" için doğrudan kayıt bulunamadı. Lütfen kelimenin kökünü,
-            eş anlamlısını veya Latin / Osmanlıca alternatif imlasını deneyin.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/admin"
-              className="text-xs font-semibold text-burgundy-700 hover:underline"
-            >
-              + Yönetim Panelinden Bu Kelimeyi Yeni Madde Olarak Ekle
-            </Link>
+        ) : (
+          <div className="manuscript-panel p-12 text-center space-y-4 max-w-xl mx-auto">
+            <div className="w-14 h-14 rounded-full bg-burgundy-50 text-burgundy-700 flex items-center justify-center mx-auto text-2xl font-serif">
+              ؟
+            </div>
+            <h3 className="font-serif text-xl font-bold text-ink-900">
+              Aradığınız Kriterlere Uygun Madde Bulunamadı
+            </h3>
+            <p className="text-xs text-ink-600 leading-relaxed">
+              "{query}" için doğrudan kayıt bulunamadı. Lütfen kelimenin kökünü,
+              eş anlamlısını veya Latin / Osmanlıca alternatif imlasını deneyin.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/admin"
+                className="text-xs font-semibold text-burgundy-700 hover:underline"
+              >
+                + Yönetim Panelinden Bu Kelimeyi Yeni Madde Olarak Ekle
+              </Link>
+            </div>
           </div>
-        </div>
+        )
       ) : (
         <div className="space-y-5">
           {words.map((w) => {

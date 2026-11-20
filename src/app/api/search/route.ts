@@ -57,6 +57,21 @@ export async function GET(request: NextRequest) {
       orderBy: [{ isWordOfDay: "desc" }, { viewCount: "desc" }],
     });
 
+    // Fetch candidate library texts
+    const allLibraryTexts = await prisma.libraryText.findMany({
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        titleOttoman: true,
+        author: true,
+        period: true,
+        genre: true,
+        summary: true,
+        poeticMeter: true,
+      },
+    });
+
     // If query is empty, return initial prominent words
     if (!q) {
       return NextResponse.json({
@@ -65,6 +80,7 @@ export async function GET(request: NextRequest) {
         total: allWords.length,
         words: allWords.slice(0, limit),
         matchingRoots: [],
+        matchingLibraryTexts: [],
       });
     }
 
@@ -146,12 +162,32 @@ export async function GET(request: NextRequest) {
       }
     });
 
+    // Match library texts
+    const matchingLibraryTexts = allLibraryTexts.filter((t) => {
+      if (isArabic) {
+        return (
+          normalizeArabicScript(t.titleOttoman).includes(normalizedQ) ||
+          normalizeArabicScript(t.title).includes(normalizedQ)
+        );
+      } else {
+        return (
+          normalizeLatinText(t.title).includes(normalizedQ) ||
+          normalizeLatinText(t.author).includes(normalizedQ) ||
+          normalizeLatinText(t.genre).includes(normalizedQ) ||
+          normalizeLatinText(t.summary).includes(normalizedQ) ||
+          normalizeLatinText(t.slug).includes(normalizedQ) ||
+          (t.poeticMeter && normalizeLatinText(t.poeticMeter).includes(normalizedQ))
+        );
+      }
+    });
+
     return NextResponse.json({
       query: q,
       isArabic,
       total: matchingWords.length,
       words: matchingWords.slice(0, limit),
       matchingRoots: matchingRoots.slice(0, 5),
+      matchingLibraryTexts: matchingLibraryTexts.slice(0, 5),
     });
   } catch (error) {
     console.error("Search API error:", error);
